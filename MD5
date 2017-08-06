@@ -1,5 +1,5 @@
-c5caf3ddfc7124f0bd23a971988964f7 *DESCRIPTION
-2e79e37f6c2648390d0e16ff4909de91 *NAMESPACE
+e0c488f78888a0ba53b2fd8cd1ed75cf *DESCRIPTION
+ae58f3ebebbe43ec07076f54e03f8633 *NAMESPACE
 9990ae25d3191aac8d827d6f4e84cbfe *R/Extract.R
 da61648f210b04ee405f669fff8fb315 *R/NULLing.R
 3edd058ed1f2c7ab2cd39f30c4ea1d93 *R/StartMessage.R
@@ -16,8 +16,9 @@ e9d4093ff991a020bf8aba28cee62aef *R/change_concept.R
 f553dcd85bfd024bd9087a0a64831fb8 *R/df2taxlist.R
 b99523b6d8c07de242fbb8e92a1934b4 *R/get_children.R
 3e280c64c9dc1e06ca68293cea59820a *R/levels.R
+fbead1570992d74be0f14944276bfacb *R/merge_taxa.R
 6f25de60dfda71311dc5772cbb99b122 *R/subset.R
-a6e2c3383005d630da3b237a13f19e64 *R/summary.R
+1976528b2fea55286dfd57a74e533a16 *R/summary.R
 d8eafdeda8f66657bd0e8fac0a556463 *R/taxlist-class.R
 adc0aaebccccfce776016fda32ab9114 *R/taxon_names.R
 e0f38b7d46409e3525d74b146424be99 *R/taxon_relations.R
@@ -26,13 +27,13 @@ a49caf88c971d1228ed137babd7eb63f *R/taxon_views.R
 a723d9dab0648eb192c8b3d4fd25d8ef *R/tnrs.R
 564fae8418166f511dcb6c97fe5b43c4 *R/tv2taxlist.R
 a621c8e5e782a97a868bc57756b193d0 *build/vignette.rds
-e0429fc9e2dcccf54549ef886d4b512a *data/Easplist.rda
-b9b35a9c92ca90618d8f4a4d4b3563ba *inst/ChangeLog
+32fdf4f03a71b72e610704197eeb680c *data/Easplist.rda
+da3b80490f5376feab36758427228675 *inst/ChangeLog
 610adcb7847869d631fb99aab3185c7a *inst/cyperus/names.csv
 7f4c5d2d2d084fd0dcf6af515e509f8c *inst/cyperus/traits.csv
 869642f2384306d5568277923f7eb205 *inst/doc/taxlist-intro.R
 a8ef7602c4caa96f5925175fcdef7b4b *inst/doc/taxlist-intro.Rmd
-40ea718f25d629cb91760326ea389786 *inst/doc/taxlist-intro.html
+acf74528f2ad75ba28f2b2d728a79af4 *inst/doc/taxlist-intro.html
 e21aff79ffb6559bbef012257c39a39c *inst/tv_data/species/cyperus/ecodbase.dbf
 58f13fdea2f76af5e65b7fbe4775396c *inst/tv_data/species/cyperus/species.dbf
 f04ac9cb8334c8af14d532e04d7dae90 *man/Easplist-data.Rd
@@ -50,8 +51,9 @@ f505739f91ff6c972622b5c9a134a4c9 *man/change_concept.Rd
 5faafb981381c87fc1895bc7d9ddbb7a *man/df2taxlist.Rd
 0af7bd058cd6cf9cad959eaa958199ec *man/get_children.Rd
 8bc325392b1e51da7dfe5d5ad94c190e *man/levels.Rd
-7367ca56b66f7444a2e007b5b6a40bf2 *man/subset.Rd
-a7b49497886ce7b89f1f26999b51b02c *man/summary.Rd
+fa6cd504b81fca5d0f2246a7b53a63bd *man/merge_taxa.Rd
+9aa77a92a07309afe491574c6ddbce02 *man/subset.Rd
+915081c64c904d6134b56865b3ca00d8 *man/summary.Rd
 816e3aceae1a088d1948b680ae285a5e *man/taxlist-class.Rd
 bbbdbd02491b2c08bc3e0b19ee198d34 *man/taxlist-package.Rd
 cb400cf45d7ae602abc7f6112b6d7b75 *man/taxon_names.Rd
