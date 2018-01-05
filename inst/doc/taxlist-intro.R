@@ -1,6 +1,6 @@
 ## ----install_github, eval=FALSE------------------------------------------
 #  library(devtools)
-#  install_github("kamapu/taxlist")
+#  install_github("kamapu/taxlist", build_vignettes=TRUE)
 
 ## ----install_cran, eval=FALSE--------------------------------------------
 #  install.packages("taxlist", dependencies=TRUE)
@@ -22,13 +22,16 @@ Splist <- Cross[,"TaxonName"]
 Splist <- df2taxlist(Splist)
 summary(Splist)
 
+## ----summary_character---------------------------------------------------
+summary(Splist, "Erigeron floribundus")
+
 ## ----resolving_nomenclature, message=FALSE-------------------------------
 summary(Splist)
 Splist <- taxlist::tnrs(Splist)
 summary(Splist)
 
 ## ----summary_all---------------------------------------------------------
-summary(Splist, "all")
+summary(Splist, "Erigeron floribundus")
 
 ## ------------------------------------------------------------------------
 accepted_name(Splist)[1:5,]
@@ -95,7 +98,7 @@ summary(Syntax)
 Nymplot <- subset(Syntax, charmatch("Nymphaeetum", TaxonName), slot="names")
 summary(Nymplot, "all")
 
-## ----get_nymplot"--------------------------------------------------------
+## ----get_nymplot_2"------------------------------------------------------
 Nymplot <- subset(Syntax, charmatch("Nymphaeetum", TaxonName), slot="names",
 	keep_parents=TRUE)
 summary(Nymplot, "all")

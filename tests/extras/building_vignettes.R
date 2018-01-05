@@ -5,5 +5,5 @@
 
 library(devtools)
 
-setwd("M:/WorkspaceEclipse/taxlist")
+setwd("M:/WorkspaceR/taxlist")
 build_vignettes()

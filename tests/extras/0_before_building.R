@@ -11,5 +11,6 @@ setwd("M:/WorkspaceR/taxlist")
 # 1: Render README
 render(input="README.Rmd")
 
-# 2: Building vignettes
-build_vignettes()
+# 2: Building vignettes (only for display)
+## build_vignettes()
+unlink("inst/doc")

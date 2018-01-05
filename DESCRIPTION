@@ -1,7 +1,7 @@
 Package: taxlist
-Version: 0.1.2
+Version: 0.1.3
 Encoding: UTF-8
-Date: 2017-08-05
+Date: 2018-01-01
 Title: Handling Taxonomic Lists
 Author: Miguel Alvarez <kamapu78@gmail.com>
 Maintainer: Miguel Alvarez <kamapu78@gmail.com>
@@ -18,15 +18,17 @@ License: GPL (>= 2)
 URL: https://cran.r-project.org/package=taxlist,
         https://github.com/kamapu/taxlist
 BugReports: https://github.com/kamapu/taxlist/issues
-Collate: 'NULLing.R''taxlist-class.R''clean.R''as.list.R'
+Collate:
+        'NULLing.R''supporting_functions.R''taxlist-class.R''clean.R''as.list.R'
         'taxon_names.R''taxon_relations.R''taxon_traits.R''taxon_views.R'
-        'levels.R''add_concept.R''add_synonym.R''add_view.R''accepted_name.R'
-        'add_level.R''add_parent.R''get_children.R'
+        'levels.R''add_concept.R''add_synonym.R''add_trait.R''add_view.R'
+        'accepted_name.R' 'add_level.R''add_parent.R''get_children.R'
         'change_concept.R''Extract.R''subset.R' 'merge_taxa.R'
         'backup_object.R''summary.R'
-        'df2taxlist.R''tv2taxlist.R''tnrs.R' 'StartMessage.R'
+        'df2taxlist.R''tv2taxlist.R''tnrs.R' 'tax2traits.R'
+        'StartMessage.R'
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2017-08-06 20:51:20 UTC; m_alvarez
+Packaged: 2018-01-05 10:11:21 UTC; Migue
 Repository: CRAN
-Date/Publication: 2017-08-06 21:00:10 UTC
+Date/Publication: 2018-01-05 16:07:46 UTC
