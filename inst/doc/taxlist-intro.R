@@ -74,7 +74,8 @@ Syntax <- new("taxlist")
 
 levels(Syntax) <- c("association","alliance","order","class")
 
-taxon_views(Syntax) <- data.frame(ViewID=1, Author="Alvarez M", Year=2017,
+taxon_views(Syntax) <- data.frame(ViewID=1, Secundum="Alvarez (2017)",
+		Author="Alvarez M", Year=2017,
         Title="Classification of aquatic and semi-aquatic vegetation in East Africa",
         stringsAsFactors=FALSE)
 
@@ -98,7 +99,7 @@ summary(Syntax)
 Nymplot <- subset(Syntax, charmatch("Nymphaeetum", TaxonName), slot="names")
 summary(Nymplot, "all")
 
-## ----get_nymplot_2"------------------------------------------------------
+## ----get_nymplot_2-------------------------------------------------------
 Nymplot <- subset(Syntax, charmatch("Nymphaeetum", TaxonName), slot="names",
 	keep_parents=TRUE)
 summary(Nymplot, "all")
