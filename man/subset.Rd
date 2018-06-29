@@ -3,12 +3,12 @@
 \alias{subset}
 \alias{subset,taxlist-method}
 
-\title{Subset method for \sQuote{taxlist} objects.}
+\title{Subset Method for taxlist Objects}
 \description{
 Subset of \code{\linkS4class{taxlist}} objects will be done applying either
 logical operations or pattern matchings.
 Subsets can be referred to information contained either in the slot
-\code{taxonNames}, \code{taxonRelations} or \code{taxonTraits}.
+\code{'taxonNames'}, \code{'taxonRelations'} or \code{'taxonTraits'}.
 }
 \usage{
 \S4method{subset}{taxlist}(x, subset, slot="names", keep_children=FALSE,
@@ -25,8 +25,7 @@ Subsets can be referred to information contained either in the slot
 \details{
 The argument \code{'subset'} will be applied to the slot specified in argument
 \code{'slot'}.
-This argument can be referred either by the full name of the respective slot or
-an alias.
+This argument also allows partial matchings.
 
 Arguments \code{keep_children} and \code{keep_parents} are applied to objects
 including parent-child relationships.
@@ -39,15 +38,15 @@ Be aware that \code{subset} won't work properly inside of function definitions.
 An object of class \code{\linkS4class{taxlist}}.
 }
 \author{
-Miguel Alvarez (\email{kamapu78@gmail.com}).
+Miguel Alvarez, \email{kamapu78@gmail.com}.
 }
 \examples{
 library(taxlist)
 
 data(Easplist)
-Easplist <- subset(Easplist, LifeForm == "T", slot="traits")
+Easplist <- subset(Easplist, lf_behn_2018 == "reed_plant", slot="traits")
 summary(Easplist)
 
-summary(as.factor(Easplist$LifeForm))
+summary(as.factor(Easplist$lf_behn_2018))
 }
 \keyword{methods}

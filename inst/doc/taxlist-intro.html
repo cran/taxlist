@@ -12,7 +12,7 @@
 
 <meta name="author" content="Miguel Alvarez" />
 
-<meta name="date" content="2018-05-03" />
+<meta name="date" content="2018-06-28" />
 
 <title>Applying taxlist to species lists on diversity records</title>
 
@@ -280,7 +280,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">Applying taxlist to species lists on diversity records</h1>
 <h4 class="author"><em>Miguel Alvarez</em></h4>
-<h4 class="date"><em>2018-05-03</em></h4>
+<h4 class="date"><em>2018-06-28</em></h4>
 
 
 
@@ -322,7 +322,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">Splist &lt;-<span class="st"> </span>Cross[,<span class="st">&quot;TaxonName&quot;</span>]</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2">Splist &lt;-<span class="st"> </span><span class="kw">df2taxlist</span>(Splist)</a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw">summary</span>(Splist)</a></code></pre></div>
-<pre><code>## object size: 8.5 Kb 
+<pre><code>## object size: 9.1 Kb 
 ## validation of 'taxlist' object: TRUE 
 ## 
 ## number of names: 35 
@@ -339,14 +339,14 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## parent: none 
 ## 
 ## # accepted name: 
-## 5 Erigeron floribundus  
+## 5 Erigeron floribundus NA 
 ## ------------------------------</code></pre>
 </div>
 <div id="resolving-taxonomic-names-with-taxize" class="section level2">
 <h2>2.3 Resolving taxonomic names with taxize</h2>
 <p>One of the main concerns is to resolve nomenclatorial issues, especially when working with historical data or combining data from different sources. For this purpose, <code>taxlist</code> implements a method for the function <code>tnrs</code> (package <code>taxize</code>):</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">summary</span>(Splist)</a></code></pre></div>
-<pre><code>## object size: 8.5 Kb 
+<pre><code>## object size: 9.1 Kb 
 ## validation of 'taxlist' object: TRUE 
 ## 
 ## number of names: 35 
@@ -356,7 +356,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## reference entries: 0</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">Splist &lt;-<span class="st"> </span>taxlist<span class="op">::</span><span class="kw">tnrs</span>(Splist)</a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">summary</span>(Splist)</a></code></pre></div>
-<pre><code>## object size: 14.6 Kb 
+<pre><code>## object size: 15.8 Kb 
 ## validation of 'taxlist' object: TRUE 
 ## 
 ## number of names: 45 
@@ -376,7 +376,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 36 Conyza sumatrensis var. leiotheca (S.F. Blake) Pruski &amp; G. Sancho 
 ## 
 ## # synonyms (1): 
-## 5 Erigeron floribundus  
+## 5 Erigeron floribundus NA 
 ## ------------------------------</code></pre>
 <p>At this point it is important to mention that while most resolvers are offering ways to replace names by accepted ones, in <code>taxlist</code> objects both, accepted names and synonyms are preserved. Only typographical errors and names of authors will be changed in the object. This is important in the compilation of diversity records (i.e. vegetation plot databases), where the stored data have to be faithful to the source. Thus data connected to a taxon name can be automatically assigned to the correspondent taxon concept without to modify the record’s entry. An overview to the accepted names and possible changes can be displayed as follows:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">accepted_name</span>(Splist)[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,]</a></code></pre></div>
@@ -386,12 +386,12 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 3              3            3              Digitaria abyssinica
 ## 4              4            4           Hyparrhenia filipendula
 ## 5              5           36 Conyza sumatrensis var. leiotheca
-##                        AuthorName
-## 1    (A. Rich.) Hochst. ex Steud.
-## 2             (C.B. Clarke) Dandy
-## 3     (Hochst. ex A. Rich.) Stapf
-## 4                 (Hochst.) Stapf
-## 5 (S.F. Blake) Pruski &amp; G. Sancho</code></pre>
+##                        AuthorName ViewID Level
+## 1    (A. Rich.) Hochst. ex Steud.     NA    NA
+## 2             (C.B. Clarke) Dandy     NA    NA
+## 3     (Hochst. ex A. Rich.) Stapf     NA    NA
+## 4                 (Hochst.) Stapf     NA    NA
+## 5 (S.F. Blake) Pruski &amp; G. Sancho     NA    NA</code></pre>
 </div>
 </div>
 <div id="built-in-data-set" class="section level1">
@@ -401,33 +401,33 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>The installation of <code>taxlist</code> includes the data <code>Easplist</code>, which is formatted as a <code>taxlist</code> object. This data is a subset of the species list used by the database <strong>SWEA-Dataveg</strong> (<a href="http://www.givd.info/ID/AF-00-006" title="SWEA-Dataveg">GIVD ID AF-006</a>):</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">data</span>(Easplist)</a>
 <a class="sourceLine" id="cb20-2" data-line-number="2"><span class="kw">summary</span>(Easplist)</a></code></pre></div>
-<pre><code>## object size: 740 Kb 
+<pre><code>## object size: 1451.5 Kb 
 ## validation of 'taxlist' object: TRUE 
 ## 
-## number of names: 5337 
-## number of concepts: 3935 
-## trait entries: 51 
+## number of names: 5396 
+## number of concepts: 3887 
+## trait entries: 311 
 ## number of trait variables: 1 
-## reference entries: 2 
+## reference entries: 3 
 ## 
-## concepts with parents: 3745 
-## concepts with children: 1214 
+## concepts with parents: 3698 
+## concepts with children: 1343 
 ## 
-## hierarchical levels: form &lt; variety &lt; subspecies &lt; species &lt; genus &lt; family 
-## number of concepts in level form: 1
-## number of concepts in level variety: 110
-## number of concepts in level subspecies: 81
-## number of concepts in level species: 2528
-## number of concepts in level genus: 1025
-## number of concepts in level family: 189</code></pre>
+## hierarchical levels: form &lt; variety &lt; subspecies &lt; species &lt; complex &lt; genus &lt; family 
+## number of concepts in level form: 2
+## number of concepts in level variety: 95
+## number of concepts in level subspecies: 71
+## number of concepts in level species: 2521
+## number of concepts in level complex: 1
+## number of concepts in level genus: 1011
+## number of concepts in level family: 186</code></pre>
 </div>
 <div id="access-to-slots" class="section level2">
 <h2>3.2 Access to slots</h2>
 <p>The common ways to access to the content of slots in <code>S4</code> objects are either using the function <code>slot(object, name)</code> or the symbol <code>@</code> (i.e. <code>object@name</code>). Additional functions, which are specific for <code>taxlist</code> objects are <code>taxon_names</code>, <code>taxon_relations</code>, <code>taxon_traits</code> and <code>taxon_views</code> (see the help documentation).</p>
 <p>Additionally, it is possible to use the methods <code>$</code> and <code>[</code> , the first for access to information in the slot <code>taxonTraits</code>, while the second can be also used for other slots in the object.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">summary</span>(<span class="kw">as.factor</span>(Easplist<span class="op">$</span>LifeForm))</a></code></pre></div>
-<pre><code>## Ch  H Hy  T 
-##  5  7  3 36</code></pre>
+<pre><code>## integer(0)</code></pre>
 </div>
 <div id="subsets" class="section level2">
 <h2>3.3 Subsets</h2>
@@ -446,25 +446,26 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <h2>3.4 Hierarchical structure</h2>
 <p>Objects belonging to the class <code>taxlist</code> can optionally content parent-child relationships and taxonomic levels. Such information is also included in the data <code>Easplist</code>, as shown in the summary output.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">summary</span>(Easplist)</a></code></pre></div>
-<pre><code>## object size: 740 Kb 
+<pre><code>## object size: 1451.5 Kb 
 ## validation of 'taxlist' object: TRUE 
 ## 
-## number of names: 5337 
-## number of concepts: 3935 
-## trait entries: 51 
+## number of names: 5396 
+## number of concepts: 3887 
+## trait entries: 311 
 ## number of trait variables: 1 
-## reference entries: 2 
+## reference entries: 3 
 ## 
-## concepts with parents: 3745 
-## concepts with children: 1214 
+## concepts with parents: 3698 
+## concepts with children: 1343 
 ## 
-## hierarchical levels: form &lt; variety &lt; subspecies &lt; species &lt; genus &lt; family 
-## number of concepts in level form: 1
-## number of concepts in level variety: 110
-## number of concepts in level subspecies: 81
-## number of concepts in level species: 2528
-## number of concepts in level genus: 1025
-## number of concepts in level family: 189</code></pre>
+## hierarchical levels: form &lt; variety &lt; subspecies &lt; species &lt; complex &lt; genus &lt; family 
+## number of concepts in level form: 2
+## number of concepts in level variety: 95
+## number of concepts in level subspecies: 71
+## number of concepts in level species: 2521
+## number of concepts in level complex: 1
+## number of concepts in level genus: 1011
+## number of concepts in level family: 186</code></pre>
 <p>Note that such information can get lost once applied <code>subset</code>, since the respective parents or children from the original data set are not anymore in the subset. May you like to recover parents and children, you can use the functions <code>get_paretns</code> or <code>get_children</code>, respectively.</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">summary</span>(Papyrus, <span class="st">&quot;all&quot;</span>)</a></code></pre></div>
 <pre><code>## ------------------------------ 
@@ -477,8 +478,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 206 Cyperus papyrus L. 
 ## 
 ## # synonyms (2): 
-## 52612 Cyperus papyrus subsp. antiquorum (Willd.) Chiov. 
-## 52613 Cyperus papyrus subsp. nyassicus Chiov. 
+## 52612 Cyperus papyrus ssp. antiquorum (Willd.) Chiov. 
+## 52613 Cyperus papyrus ssp. nyassicus Chiov. 
 ## ------------------------------</code></pre>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">Papyrus &lt;-<span class="st"> </span><span class="kw">get_parents</span>(Easplist, Papyrus)</a>
 <a class="sourceLine" id="cb31-2" data-line-number="2"><span class="kw">summary</span>(Papyrus, <span class="st">&quot;all&quot;</span>)</a></code></pre></div>
@@ -486,30 +487,30 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## concept ID: 206 
 ## view ID: 1 
 ## level: species 
-## parent: 53660 
+## parent: 54853 Cyperus L. 
 ## 
 ## # accepted name: 
 ## 206 Cyperus papyrus L. 
 ## 
 ## # synonyms (2): 
-## 52612 Cyperus papyrus subsp. antiquorum (Willd.) Chiov. 
-## 52613 Cyperus papyrus subsp. nyassicus Chiov. 
+## 52612 Cyperus papyrus ssp. antiquorum (Willd.) Chiov. 
+## 52613 Cyperus papyrus ssp. nyassicus Chiov. 
 ## ------------------------------ 
-## concept ID: 53660 
+## concept ID: 54853 
 ## view ID: 2 
 ## level: genus 
-## parent: 54607 
+## parent: 55959 Cyperaceae NA 
 ## 
 ## # accepted name: 
-## 53660 Cyperus NA 
+## 54855 Cyperus L. 
 ## ------------------------------ 
-## concept ID: 54607 
-## view ID: 2 
+## concept ID: 55959 
+## view ID: 3 
 ## level: family 
 ## parent: none 
 ## 
 ## # accepted name: 
-## 54607 Cyperaceae NA 
+## 55961 Cyperaceae NA 
 ## ------------------------------</code></pre>
 </div>
 </div>
@@ -554,7 +555,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb36-12" data-line-number="12">                <span class="dt">ViewID=</span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(Concepts))))</a>
 <a class="sourceLine" id="cb36-13" data-line-number="13"></a>
 <a class="sourceLine" id="cb36-14" data-line-number="14"><span class="kw">summary</span>(Syntax)</a></code></pre></div>
-<pre><code>## object size: 10.3 Kb 
+<pre><code>## object size: 11.1 Kb 
 ## validation of 'taxlist' object: TRUE 
 ## 
 ## number of names: 26 
@@ -601,7 +602,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 6             18  HE6</code></pre>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">taxon_traits</span>(Syntax) &lt;-<span class="st"> </span>Codes</a>
 <a class="sourceLine" id="cb43-2" data-line-number="2"><span class="kw">summary</span>(Syntax)</a></code></pre></div>
-<pre><code>## object size: 12.5 Kb 
+<pre><code>## object size: 13.6 Kb 
 ## validation of 'taxlist' object: TRUE 
 ## 
 ## number of names: 37 
@@ -650,7 +651,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## concept ID: 6 
 ## view ID: 1 
 ## level: order 
-## parent: 5 
+## parent: 5 Potametea Klika ex Klika &amp; Novák 1941 
 ## 
 ## # accepted name: 
 ## 6 Nymphaeetalia loti Lebrun 1947 
@@ -658,7 +659,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## concept ID: 7 
 ## view ID: 1 
 ## level: alliance 
-## parent: 6 
+## parent: 6 Nymphaeetalia loti Lebrun 1947 
 ## 
 ## # accepted name: 
 ## 7 Nymphaeion loti Lebrun 1947 
@@ -666,7 +667,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## concept ID: 8 
 ## view ID: 1 
 ## level: association 
-## parent: 7 
+## parent: 7 Nymphaeion loti Lebrun 1947 
 ## 
 ## # accepted name: 
 ## 8 Nymphaeetum loti Lebrun 1947 

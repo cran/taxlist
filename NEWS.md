@@ -1,3 +1,30 @@
+taxlist 0.1.5
+=============
+
+### New Features
+
+* A **CITATION** file is included in the installation.
+* New method `replace_view`.
+* New method `print_name` for formatting taxon names to italic style.
+* New method `update_name`, for updating information in slot `taxonNames`.
+* New method `synonyms` retrieving synonyms for indicated concepts.
+* New method `delete_name` for deleting synonyms in `taxlist` objects.
+* New method `basionym` for handling basionyms.
+
+### Improvements
+
+* Function `accepted_name` retrieves also information on `Level` (taxonomic rank) and traits (optional in argument `show_traits`).
+* Function `summary` for single taxon is displaying the name of the parent taxon (accepted name) and optional a string for the taxon view.
+* Function `backup_object` prints a message in the console.
+* Related functions will join documentation files.
+* Data set `Easplist` adapted to new state of database **SWEA-Dataveg**.
+* Function `match_names` counts multiple best matchings and includes a new argument `show_concepts` for displaying the respective accepted names and taxon concept ID.
+
+### Bugs Fixes
+* Function `load_last` was not working for single files with suffix, neither for absolute path or paths with underscores.
+* Function `summary` for single taxa was not displaying names that are homonyms to the accepted name.
+* Re-organized documentation.
+
 taxlist 0.1.4
 =============
 
