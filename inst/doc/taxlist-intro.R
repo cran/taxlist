@@ -25,17 +25,6 @@ summary(Splist)
 ## ----summary_character---------------------------------------------------
 summary(Splist, "Erigeron floribundus")
 
-## ----resolving_nomenclature, message=FALSE-------------------------------
-summary(Splist)
-Splist <- taxlist::tnrs(Splist)
-summary(Splist)
-
-## ----summary_all---------------------------------------------------------
-summary(Splist, "Erigeron floribundus")
-
-## ------------------------------------------------------------------------
-accepted_name(Splist)[1:5,]
-
 ## ----load_easplist-------------------------------------------------------
 data(Easplist)
 summary(Easplist)

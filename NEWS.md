@@ -1,3 +1,22 @@
+taxlist 0.1.6
+=============
+
+### New Features
+
+* New function `count_taxa()`
+
+### Improvements
+* A new option `style="knitr"` for function `print_name()` (See [this issue](https://stackoverflow.com/questions/51092103/formatted-scientific-names-from-r-to-latex-using-sweave-or-knitr)) at **Stack Overflow**.
+* In function `backup_object()`, the message will be done after successful saving and not before.
+* New argument `accepted_only` in function `match_names()`, for comparing strings only with accepted names.
+* Error message for NA's in argument `x` at function `match_names()`
+
+### Bugs Fixes
+* Function `add_synonym()` was not properly working for incomplete entries (missing variables in the replacement values.)
+* Function `load_last()` was not properly working for values of `file` without mention of subfolder.
+* Function `accepted_name()` with option `show_traits=TRUE` was not displaying taxa with no entries for taxon traits.
+* Prototype for object `taxlist` wrongly included a slot **hierarchy.**
+
 taxlist 0.1.5
 =============
 

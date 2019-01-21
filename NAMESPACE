@@ -23,6 +23,8 @@ exportMethods(
 	basionym,"basionym<-",
 	"change_concept<-",
 	clean,
+	clean_strings,
+	count_taxa,
 	delete_name,
 	df2taxlist,
 	get_children,

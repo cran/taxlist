@@ -1,13 +1,13 @@
 Package: taxlist
-Version: 0.1.5
+Version: 0.1.6
 Encoding: UTF-8
-Date: 2018-06-18
 Title: Handling Taxonomic Lists
 Authors@R: 
-	person("Miguel", "Alvarez", email="kamapu78@gmail.com", role=c("aut", "cre"))
+	person("Miguel", "Alvarez", email="kamapu78@gmail.com",
+		role=c("aut","cre"), comment=c(ORCID="0000-0003-1500-1834"))
 Depends: R(>= 3.0.0), stats, utils
 Imports: foreign, grDevices, methods, taxize, stringdist, vegdata
-Suggests: ape, devtools, knitr, stringi, taxa, rmarkdown
+Suggests: devtools, knitr, stringi, taxa, rmarkdown
 LazyData: true
 Description: Handling taxonomic lists through objects of class 'taxlist'.
     This package provides functions to import species lists from 'Turboveg'
@@ -18,10 +18,10 @@ License: GPL (>= 2)
 URL: https://cran.r-project.org/package=taxlist,
         https://github.com/kamapu/taxlist
 BugReports: https://github.com/kamapu/taxlist/issues
-Collate:
-        'NULLing.R''auxiliary_functions.R''deprecated-functions.R''dissect_name.R'
+Collate: 'NULLing.R''auxiliary_functions.R''deprecated-functions.R'
+        'dissect_name.R''clean_strings.R'
         'taxlist-class.R''clean.R''as.list.R''taxon_views.R''add_view.R'
-        'taxon_names.R''taxon_relations.R''taxon_traits.R'
+        'count_taxa.R''taxon_names.R''taxon_relations.R''taxon_traits.R'
         'levels.R''add_concept.R''update_concept.R''add_synonym.R'
         'accepted_name.R''synonyms.R''basionym.R''update_name.R''delete_name.R'
         'replace_view.R''get_children.R'
@@ -31,8 +31,8 @@ Collate:
         'StartMessage.R'
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2018-06-28 21:09:25 UTC; m_alvarez
-Author: Miguel Alvarez [aut, cre]
+Packaged: 2019-01-21 14:26:33 UTC; m_alvarez
+Author: Miguel Alvarez [aut, cre] (<https://orcid.org/0000-0003-1500-1834>)
 Maintainer: Miguel Alvarez <kamapu78@gmail.com>
 Repository: CRAN
-Date/Publication: 2018-06-29 08:02:56 UTC
+Date/Publication: 2019-01-21 14:50:03 UTC

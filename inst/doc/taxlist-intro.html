@@ -12,14 +12,14 @@
 
 <meta name="author" content="Miguel Alvarez" />
 
-<meta name="date" content="2018-06-28" />
+<meta name="date" content="2019-01-21" />
 
 <title>Applying taxlist to species lists on diversity records</title>
 
 
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
+<style type="text/css" data-origin="pandoc">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; position: absolute; }
@@ -83,7 +83,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
 </style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 
@@ -280,7 +302,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">Applying taxlist to species lists on diversity records</h1>
 <h4 class="author"><em>Miguel Alvarez</em></h4>
-<h4 class="date"><em>2018-06-28</em></h4>
+<h4 class="date"><em>2019-01-21</em></h4>
 
 
 
@@ -322,11 +344,11 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">Splist &lt;-<span class="st"> </span>Cross[,<span class="st">&quot;TaxonName&quot;</span>]</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2">Splist &lt;-<span class="st"> </span><span class="kw">df2taxlist</span>(Splist)</a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw">summary</span>(Splist)</a></code></pre></div>
-<pre><code>## object size: 9.1 Kb 
+<pre><code>## object size: 9 Kb 
 ## validation of 'taxlist' object: TRUE 
 ## 
-## number of names: 35 
-## number of concepts: 35 
+## number of taxon usage names: 35 
+## number of taxon concepts: 35 
 ## trait entries: 0 
 ## number of trait variables: 0 
 ## reference entries: 0</code></pre>
@@ -342,70 +364,19 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 5 Erigeron floribundus NA 
 ## ------------------------------</code></pre>
 </div>
-<div id="resolving-taxonomic-names-with-taxize" class="section level2">
-<h2>2.3 Resolving taxonomic names with taxize</h2>
-<p>One of the main concerns is to resolve nomenclatorial issues, especially when working with historical data or combining data from different sources. For this purpose, <code>taxlist</code> implements a method for the function <code>tnrs</code> (package <code>taxize</code>):</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">summary</span>(Splist)</a></code></pre></div>
-<pre><code>## object size: 9.1 Kb 
-## validation of 'taxlist' object: TRUE 
-## 
-## number of names: 35 
-## number of concepts: 35 
-## trait entries: 0 
-## number of trait variables: 0 
-## reference entries: 0</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">Splist &lt;-<span class="st"> </span>taxlist<span class="op">::</span><span class="kw">tnrs</span>(Splist)</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">summary</span>(Splist)</a></code></pre></div>
-<pre><code>## object size: 15.8 Kb 
-## validation of 'taxlist' object: TRUE 
-## 
-## number of names: 45 
-## number of concepts: 35 
-## trait entries: 0 
-## number of trait variables: 0 
-## reference entries: 0</code></pre>
-<p>While after this procedure, the number of taxa remained as 35, the number of taxon names increased, indicating that some of the names in the original source are currently considered as synonyms. This is for example the case of <em>Erigeron floribundus</em>:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">summary</span>(Splist, <span class="st">&quot;Erigeron floribundus&quot;</span>)</a></code></pre></div>
-<pre><code>## ------------------------------ 
-## concept ID: 5 
-## view ID: none 
-## level: none 
-## parent: none 
-## 
-## # accepted name: 
-## 36 Conyza sumatrensis var. leiotheca (S.F. Blake) Pruski &amp; G. Sancho 
-## 
-## # synonyms (1): 
-## 5 Erigeron floribundus NA 
-## ------------------------------</code></pre>
-<p>At this point it is important to mention that while most resolvers are offering ways to replace names by accepted ones, in <code>taxlist</code> objects both, accepted names and synonyms are preserved. Only typographical errors and names of authors will be changed in the object. This is important in the compilation of diversity records (i.e. vegetation plot databases), where the stored data have to be faithful to the source. Thus data connected to a taxon name can be automatically assigned to the correspondent taxon concept without to modify the record’s entry. An overview to the accepted names and possible changes can be displayed as follows:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">accepted_name</span>(Splist)[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,]</a></code></pre></div>
-<pre><code>##   TaxonConceptID TaxonUsageID                         TaxonName
-## 1              1            1             Eragrostis tenuifolia
-## 2              2            2                  Cyperus sublimis
-## 3              3            3              Digitaria abyssinica
-## 4              4            4           Hyparrhenia filipendula
-## 5              5           36 Conyza sumatrensis var. leiotheca
-##                        AuthorName ViewID Level
-## 1    (A. Rich.) Hochst. ex Steud.     NA    NA
-## 2             (C.B. Clarke) Dandy     NA    NA
-## 3     (Hochst. ex A. Rich.) Stapf     NA    NA
-## 4                 (Hochst.) Stapf     NA    NA
-## 5 (S.F. Blake) Pruski &amp; G. Sancho     NA    NA</code></pre>
-</div>
 </div>
 <div id="built-in-data-set" class="section level1">
 <h1>3. Built-in data set</h1>
 <div id="easplist" class="section level2">
 <h2>3.1 Easplist</h2>
 <p>The installation of <code>taxlist</code> includes the data <code>Easplist</code>, which is formatted as a <code>taxlist</code> object. This data is a subset of the species list used by the database <strong>SWEA-Dataveg</strong> (<a href="http://www.givd.info/ID/AF-00-006" title="SWEA-Dataveg">GIVD ID AF-006</a>):</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">data</span>(Easplist)</a>
-<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="kw">summary</span>(Easplist)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">data</span>(Easplist)</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw">summary</span>(Easplist)</a></code></pre></div>
 <pre><code>## object size: 1451.5 Kb 
 ## validation of 'taxlist' object: TRUE 
 ## 
-## number of names: 5396 
-## number of concepts: 3887 
+## number of taxon usage names: 5396 
+## number of taxon concepts: 3887 
 ## trait entries: 311 
 ## number of trait variables: 1 
 ## reference entries: 3 
@@ -426,31 +397,31 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <h2>3.2 Access to slots</h2>
 <p>The common ways to access to the content of slots in <code>S4</code> objects are either using the function <code>slot(object, name)</code> or the symbol <code>@</code> (i.e. <code>object@name</code>). Additional functions, which are specific for <code>taxlist</code> objects are <code>taxon_names</code>, <code>taxon_relations</code>, <code>taxon_traits</code> and <code>taxon_views</code> (see the help documentation).</p>
 <p>Additionally, it is possible to use the methods <code>$</code> and <code>[</code> , the first for access to information in the slot <code>taxonTraits</code>, while the second can be also used for other slots in the object.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">summary</span>(<span class="kw">as.factor</span>(Easplist<span class="op">$</span>LifeForm))</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">summary</span>(<span class="kw">as.factor</span>(Easplist<span class="op">$</span>LifeForm))</a></code></pre></div>
 <pre><code>## integer(0)</code></pre>
 </div>
 <div id="subsets" class="section level2">
 <h2>3.3 Subsets</h2>
 <p>Methods for the function <code>subset</code> are also implemented in this package. Such subsets usually apply pattern matching (for character vectors) or logical operations and are analogous to query building in relational databases. The <code>subset</code> method can be apply to any slot by setting the value of the argument <code>slot</code>.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">Papyrus &lt;-<span class="st"> </span><span class="kw">subset</span>(Easplist, <span class="kw">grepl</span>(<span class="st">&quot;papyrus&quot;</span>, TaxonName), <span class="dt">slot=</span><span class="st">&quot;names&quot;</span>)</a>
-<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">summary</span>(Papyrus, <span class="st">&quot;all&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">Papyrus &lt;-<span class="st"> </span><span class="kw">subset</span>(Easplist, <span class="kw">grepl</span>(<span class="st">&quot;papyrus&quot;</span>, TaxonName), <span class="dt">slot=</span><span class="st">&quot;names&quot;</span>)</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw">summary</span>(Papyrus, <span class="st">&quot;all&quot;</span>)</a></code></pre></div>
 <p>Or the very same results:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">Papyrus &lt;-<span class="st"> </span><span class="kw">subset</span>(Easplist, TaxonConceptID <span class="op">==</span><span class="st"> </span><span class="dv">206</span>, <span class="dt">slot=</span><span class="st">&quot;relations&quot;</span>)</a>
-<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw">summary</span>(Papyrus, <span class="st">&quot;all&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">Papyrus &lt;-<span class="st"> </span><span class="kw">subset</span>(Easplist, TaxonConceptID <span class="op">==</span><span class="st"> </span><span class="dv">206</span>, <span class="dt">slot=</span><span class="st">&quot;relations&quot;</span>)</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw">summary</span>(Papyrus, <span class="st">&quot;all&quot;</span>)</a></code></pre></div>
 <p>Similarly, you can look for a specific name.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">Phraaus &lt;-<span class="st"> </span><span class="kw">subset</span>(Easplist, <span class="kw">charmatch</span>(<span class="st">&quot;Phragmites australis&quot;</span>, TaxonName),</a>
-<a class="sourceLine" id="cb26-2" data-line-number="2">    <span class="dt">slot=</span><span class="st">&quot;names&quot;</span>)</a>
-<a class="sourceLine" id="cb26-3" data-line-number="3"><span class="kw">summary</span>(Phraaus, <span class="st">&quot;all&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">Phraaus &lt;-<span class="st"> </span><span class="kw">subset</span>(Easplist, <span class="kw">charmatch</span>(<span class="st">&quot;Phragmites australis&quot;</span>, TaxonName),</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">    <span class="dt">slot=</span><span class="st">&quot;names&quot;</span>)</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="kw">summary</span>(Phraaus, <span class="st">&quot;all&quot;</span>)</a></code></pre></div>
 </div>
 <div id="hierarchical-structure" class="section level2">
 <h2>3.4 Hierarchical structure</h2>
 <p>Objects belonging to the class <code>taxlist</code> can optionally content parent-child relationships and taxonomic levels. Such information is also included in the data <code>Easplist</code>, as shown in the summary output.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">summary</span>(Easplist)</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">summary</span>(Easplist)</a></code></pre></div>
 <pre><code>## object size: 1451.5 Kb 
 ## validation of 'taxlist' object: TRUE 
 ## 
-## number of names: 5396 
-## number of concepts: 3887 
+## number of taxon usage names: 5396 
+## number of taxon concepts: 3887 
 ## trait entries: 311 
 ## number of trait variables: 1 
 ## reference entries: 3 
@@ -467,7 +438,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## number of concepts in level genus: 1011
 ## number of concepts in level family: 186</code></pre>
 <p>Note that such information can get lost once applied <code>subset</code>, since the respective parents or children from the original data set are not anymore in the subset. May you like to recover parents and children, you can use the functions <code>get_paretns</code> or <code>get_children</code>, respectively.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">summary</span>(Papyrus, <span class="st">&quot;all&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">summary</span>(Papyrus, <span class="st">&quot;all&quot;</span>)</a></code></pre></div>
 <pre><code>## ------------------------------ 
 ## concept ID: 206 
 ## view ID: 1 
@@ -481,8 +452,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 52612 Cyperus papyrus ssp. antiquorum (Willd.) Chiov. 
 ## 52613 Cyperus papyrus ssp. nyassicus Chiov. 
 ## ------------------------------</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">Papyrus &lt;-<span class="st"> </span><span class="kw">get_parents</span>(Easplist, Papyrus)</a>
-<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="kw">summary</span>(Papyrus, <span class="st">&quot;all&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">Papyrus &lt;-<span class="st"> </span><span class="kw">get_parents</span>(Easplist, Papyrus)</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">summary</span>(Papyrus, <span class="st">&quot;all&quot;</span>)</a></code></pre></div>
 <pre><code>## ------------------------------ 
 ## concept ID: 206 
 ## view ID: 1 
@@ -524,9 +495,9 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <div id="building-the-taxlist-object" class="section level2">
 <h2>4.2 Building the taxlist object</h2>
 <p>The content for the taxonomic list is included in a data frame and can be downloaded by following command:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">load</span>(<span class="kw">url</span>(<span class="st">&quot;https://github.com/kamapu/Guides/raw/master/data/wetlands_syntax.rda&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">load</span>(<span class="kw">url</span>(<span class="st">&quot;https://github.com/kamapu/Guides/raw/master/data/wetlands_syntax.rda&quot;</span>))</a></code></pre></div>
 <p>The data frame <code>Concepts</code> contains the list of syntaxon names that are considered as accepted in the previous scheme. This list will be used to insert the new concepts in the <code>taxlist</code> object.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw">head</span>(Concepts)</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">head</span>(Concepts)</a></code></pre></div>
 <pre><code>##   TaxonConceptID Parent                                TaxonName
 ## 1              1     NA                         Lemnetea minoris
 ## 2              2      1                 Salvinio-Eichhornietalia
@@ -541,25 +512,25 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 4                                Lebrun 1947 association
 ## 5                Klika ex Klika &amp; Novák 1941       class
 ## 6                                Lebrun 1947       order</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">Syntax &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;taxlist&quot;</span>)</a>
-<a class="sourceLine" id="cb36-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb36-3" data-line-number="3"><span class="kw">levels</span>(Syntax) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;association&quot;</span>,<span class="st">&quot;alliance&quot;</span>,<span class="st">&quot;order&quot;</span>,<span class="st">&quot;class&quot;</span>)</a>
-<a class="sourceLine" id="cb36-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb36-5" data-line-number="5"><span class="kw">taxon_views</span>(Syntax) &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">ViewID=</span><span class="dv">1</span>, <span class="dt">Secundum=</span><span class="st">&quot;Alvarez (2017)&quot;</span>,</a>
-<a class="sourceLine" id="cb36-6" data-line-number="6">        <span class="dt">Author=</span><span class="st">&quot;Alvarez M&quot;</span>, <span class="dt">Year=</span><span class="dv">2017</span>,</a>
-<a class="sourceLine" id="cb36-7" data-line-number="7">        <span class="dt">Title=</span><span class="st">&quot;Classification of aquatic and semi-aquatic vegetation in East Africa&quot;</span>,</a>
-<a class="sourceLine" id="cb36-8" data-line-number="8">        <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb36-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb36-10" data-line-number="10">Syntax &lt;-<span class="st"> </span><span class="kw">with</span>(Concepts, <span class="kw">add_concept</span>(Syntax, <span class="dt">TaxonName=</span>TaxonName,</a>
-<a class="sourceLine" id="cb36-11" data-line-number="11">                <span class="dt">AuthorName=</span>AuthorName, <span class="dt">Parent=</span>Parent, <span class="dt">Level=</span>Level,</a>
-<a class="sourceLine" id="cb36-12" data-line-number="12">                <span class="dt">ViewID=</span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(Concepts))))</a>
-<a class="sourceLine" id="cb36-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb36-14" data-line-number="14"><span class="kw">summary</span>(Syntax)</a></code></pre></div>
-<pre><code>## object size: 11.1 Kb 
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">Syntax &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;taxlist&quot;</span>)</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb28-3" data-line-number="3"><span class="kw">levels</span>(Syntax) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;association&quot;</span>,<span class="st">&quot;alliance&quot;</span>,<span class="st">&quot;order&quot;</span>,<span class="st">&quot;class&quot;</span>)</a>
+<a class="sourceLine" id="cb28-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb28-5" data-line-number="5"><span class="kw">taxon_views</span>(Syntax) &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">ViewID=</span><span class="dv">1</span>, <span class="dt">Secundum=</span><span class="st">&quot;Alvarez (2017)&quot;</span>,</a>
+<a class="sourceLine" id="cb28-6" data-line-number="6">        <span class="dt">Author=</span><span class="st">&quot;Alvarez M&quot;</span>, <span class="dt">Year=</span><span class="dv">2017</span>,</a>
+<a class="sourceLine" id="cb28-7" data-line-number="7">        <span class="dt">Title=</span><span class="st">&quot;Classification of aquatic and semi-aquatic vegetation in East Africa&quot;</span>,</a>
+<a class="sourceLine" id="cb28-8" data-line-number="8">        <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb28-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb28-10" data-line-number="10">Syntax &lt;-<span class="st"> </span><span class="kw">with</span>(Concepts, <span class="kw">add_concept</span>(Syntax, <span class="dt">TaxonName=</span>TaxonName,</a>
+<a class="sourceLine" id="cb28-11" data-line-number="11">                <span class="dt">AuthorName=</span>AuthorName, <span class="dt">Parent=</span>Parent, <span class="dt">Level=</span>Level,</a>
+<a class="sourceLine" id="cb28-12" data-line-number="12">                <span class="dt">ViewID=</span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(Concepts))))</a>
+<a class="sourceLine" id="cb28-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb28-14" data-line-number="14"><span class="kw">summary</span>(Syntax)</a></code></pre></div>
+<pre><code>## object size: 10.9 Kb 
 ## validation of 'taxlist' object: TRUE 
 ## 
-## number of names: 26 
-## number of concepts: 26 
+## number of taxon usage names: 26 
+## number of taxon concepts: 26 
 ## trait entries: 0 
 ## number of trait variables: 0 
 ## reference entries: 1 
@@ -574,7 +545,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## number of concepts in level class: 4</code></pre>
 <p>Note that the function <code>new</code> created an empty object (prototype), while <code>levels</code> insert the custom levels (syntaxonomical hierarchies). For the later function, the levels have to be inserted from the lower to the higher ranks. Furthermore the reference defining the concepts included in the syntaxonomic scheme was inserted in the object using the function <code>taxon_views</code> and finally the concepts were inserted by the function <code>add_concept</code>.</p>
 <p>The next step will be inserting those names that are considered as synonyms for the respective syntaxa. Synonyms are included in the data frame <code>Synonyms</code>.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">head</span>(Synonyms)</a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">head</span>(Synonyms)</a></code></pre></div>
 <pre><code>##   TaxonConceptID                             TaxonName
 ## 1              1                          Stratiotetea
 ## 2              3                  Pistion pantropicale
@@ -589,10 +560,10 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 4    Szafranski &amp; Apema 1983
 ## 5      Tüxen &amp; Preising 1942
 ## 6                Lebrun 1947</code></pre>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">Syntax &lt;-<span class="st"> </span><span class="kw">with</span>(Synonyms, <span class="kw">add_synonym</span>(Syntax, <span class="dt">ConceptID=</span>TaxonConceptID,</a>
-<a class="sourceLine" id="cb40-2" data-line-number="2">                <span class="dt">TaxonName=</span>TaxonName, <span class="dt">AuthorName=</span>AuthorName))</a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">Syntax &lt;-<span class="st"> </span><span class="kw">with</span>(Synonyms, <span class="kw">add_synonym</span>(Syntax, <span class="dt">ConceptID=</span>TaxonConceptID,</a>
+<a class="sourceLine" id="cb32-2" data-line-number="2">                <span class="dt">TaxonName=</span>TaxonName, <span class="dt">AuthorName=</span>AuthorName))</a></code></pre></div>
 <p>Finally, the codes provided for the associations will be inserted as traits properties) of them in the slot <code>taxonTraits</code>.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">head</span>(Codes)</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">head</span>(Codes)</a></code></pre></div>
 <pre><code>##   TaxonConceptID Code
 ## 1             12  HE1
 ## 2             13  HE2
@@ -600,13 +571,13 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 4             20  HE4
 ## 5             17  HE5
 ## 6             18  HE6</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">taxon_traits</span>(Syntax) &lt;-<span class="st"> </span>Codes</a>
-<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="kw">summary</span>(Syntax)</a></code></pre></div>
-<pre><code>## object size: 13.6 Kb 
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">taxon_traits</span>(Syntax) &lt;-<span class="st"> </span>Codes</a>
+<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="kw">summary</span>(Syntax)</a></code></pre></div>
+<pre><code>## object size: 13.4 Kb 
 ## validation of 'taxlist' object: TRUE 
 ## 
-## number of names: 37 
-## number of concepts: 26 
+## number of taxon usage names: 37 
+## number of taxon concepts: 26 
 ## trait entries: 10 
 ## number of trait variables: 1 
 ## reference entries: 1 
@@ -620,8 +591,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## number of concepts in level order: 5
 ## number of concepts in level class: 4</code></pre>
 <p>For instance, you may like to get the parental chain from an association ( e.g. for <em>Nymphaeetum loti</em>).</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">Nymplot &lt;-<span class="st"> </span><span class="kw">subset</span>(Syntax, <span class="kw">charmatch</span>(<span class="st">&quot;Nymphaeetum&quot;</span>, TaxonName), <span class="dt">slot=</span><span class="st">&quot;names&quot;</span>)</a>
-<a class="sourceLine" id="cb45-2" data-line-number="2"><span class="kw">summary</span>(Nymplot, <span class="st">&quot;all&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">Nymplot &lt;-<span class="st"> </span><span class="kw">subset</span>(Syntax, <span class="kw">charmatch</span>(<span class="st">&quot;Nymphaeetum&quot;</span>, TaxonName), <span class="dt">slot=</span><span class="st">&quot;names&quot;</span>)</a>
+<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="kw">summary</span>(Nymplot, <span class="st">&quot;all&quot;</span>)</a></code></pre></div>
 <pre><code>## ------------------------------ 
 ## concept ID: 8 
 ## view ID: 1 
@@ -636,9 +607,9 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 30 Utriculario exoletae-Nymphaeetum loti Szafranski &amp; Apema 1983 
 ## ------------------------------</code></pre>
 <p>Note that there is the logical arguments <code>keep_parents</code> and <code>keep_children</code> to preserve hierarchical information in the subset:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">Nymplot &lt;-<span class="st"> </span><span class="kw">subset</span>(Syntax, <span class="kw">charmatch</span>(<span class="st">&quot;Nymphaeetum&quot;</span>, TaxonName), <span class="dt">slot=</span><span class="st">&quot;names&quot;</span>,</a>
-<a class="sourceLine" id="cb47-2" data-line-number="2">    <span class="dt">keep_parents=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb47-3" data-line-number="3"><span class="kw">summary</span>(Nymplot, <span class="st">&quot;all&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">Nymplot &lt;-<span class="st"> </span><span class="kw">subset</span>(Syntax, <span class="kw">charmatch</span>(<span class="st">&quot;Nymphaeetum&quot;</span>, TaxonName), <span class="dt">slot=</span><span class="st">&quot;names&quot;</span>,</a>
+<a class="sourceLine" id="cb39-2" data-line-number="2">    <span class="dt">keep_parents=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb39-3" data-line-number="3"><span class="kw">summary</span>(Nymplot, <span class="st">&quot;all&quot;</span>)</a></code></pre></div>
 <pre><code>## ------------------------------ 
 ## concept ID: 5 
 ## view ID: 1 

@@ -16,12 +16,12 @@ backup_object <- function(..., objects=character(), file, stamp=TRUE,
 	if(grepl("/", file, fixed=TRUE)) {
 		path <- strsplit(file, "/", fixed=TRUE)[[1]]
 		file2 <- path[length(path)]
-		path <- file.path(path[-length(path)])
+		path <- paste(path[-length(path)], collapse="/")
 	}
 	if(grepl("\\", file, fixed=TRUE)) {
-		path <- strsplit(file, "/", fixed=TRUE)[[1]]
+		path <- strsplit(file, "\\", fixed=TRUE)[[1]]
 		file2 <- path[length(path)]
-		path <- file.path(path[-length(path)])
+		path <- paste(path[-length(path)], collapse="/")
 	}
 	inFolder <- list.files(path=path, pattern=".rda")
 	if(stamp) stamp <- paste0("_", Sys.Date()) else stamp <- ""
@@ -33,6 +33,6 @@ backup_object <- function(..., objects=character(), file, stamp=TRUE,
         }
         stamp <- paste(stamp, i, sep="_")
     }
-	message(paste0("Saving backup as '", file, stamp, ".rda'"))
-    save(..., list=objects, file=paste0(file, stamp, ".rda"))
+	save(..., list=objects, file=paste0(file, stamp, ".rda"))
+	message(paste0("Backup saved as '", file, stamp, ".rda'"))
 }
