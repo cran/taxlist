@@ -14,7 +14,8 @@ setMethod("print_name", signature(object="taxlist", id="numeric"),
 		function(object, id, concept=TRUE, second_mention=FALSE,
 				include_author=TRUE, secundum, style="markdown", ...) {
 			if(length(id) > 1) {
-				warning("'print_taxa' will format only the first value in 'id'.")
+				warning(paste("'print_taxa' will format only the first value",
+								"in 'id'."))
 				id <- id[1]
 			}
 			if(concept) {
@@ -57,7 +58,7 @@ setMethod("print_name", signature(object="taxlist", id="numeric"),
 			if(style == 3) {
 				Start <- "italic("
 				End <- ")"
-				for(i in 1:length(Name))
+				for(i in seq_along(Name))
 					Name[i] <- paste0("\"", Name[i], "\"")
 			}
 			if(style == 4) {
@@ -65,7 +66,7 @@ setMethod("print_name", signature(object="taxlist", id="numeric"),
 				End <- "}"
 			}
 			# Construct string
-			for(i in 1:length(Name))
+			for(i in seq_along(Name))
 				if(Italic[i])
 					Name[i] <- paste0(Start, Name[i], End)
 			if(style == 3) {

@@ -1,3 +1,28 @@
+taxlist 0.1.7
+=============
+
+### New Features
+
+* Method for character values in function `match_names()`.
+* Set of functions for data manipulation, namely `replace_x()`, `replace_idx()`, `replace_na()`, and `insert_rows()`.
+* Function `clean()` with new argument **times** for repeat cleaning of `taxlist` objects.
+
+### Improvements
+
+* Warning in function `tax2traits()` for objects without taxonomic ranks.
+* Second argument in function `[` applies only to slot **taxonTraits**.
+* Replacement method for functions `[` and `$` deprecated.
+* Method for function `$` matches all taxon concepts when retrieving information from slot **taxonTraits**.
+* Missing argument **idx2** will be set as **idx1** in functions `replace_idx()` and `replace_na()`.
+* Function `replace_view()` deprecated.
+
+### Bug Fixes
+
+* Function `match_names()` was not properly working for the option `accepted_only=TRUE`.
+* Function `merge_taxa()` caused orphaned children of replaced taxon concepts.
+* Function `clean()` not working for deleted names.
+
+
 taxlist 0.1.6
 =============
 

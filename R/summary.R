@@ -15,7 +15,7 @@ overview_taxlist <- function(object, units, check_validity) {
     cat("trait entries:", nrow(object@taxonTraits), sep=" ", "\n")
 	cat("number of trait variables:", ncol(object@taxonTraits) - 1, sep=" ",
 			"\n")
-	cat("reference entries:", nrow(object@taxonViews), sep=" ", "\n")
+	cat("taxon views:", nrow(object@taxonViews), sep=" ", "\n")
     if(any(!is.na(object@taxonRelations$Parent))) {
         cat("\n")
         cat("concepts with parents:",
@@ -45,8 +45,9 @@ overview_taxon <- function(object, ConceptID, display, maxsum, secundum=NULL) {
 		if(ConceptID[1] == "all")
 			ConceptID <- object@taxonRelations$TaxonConceptID[1:maxsum] else {
 			Names <- list()
-			for(i in 1:length(ConceptID)) {
-				Names[[i]] <- object@taxonNames$TaxonConceptID[grepl(ConceptID[i],
+			for(i in seq_along(ConceptID)) {
+				Names[[i]] <- object@taxonNames$TaxonConceptID[
+						grepl(ConceptID[i],
 								object@taxonNames$TaxonName, fixed=TRUE)]
 			}
 			ConceptID <- do.call(c, Names)
@@ -85,7 +86,8 @@ overview_taxon <- function(object, ConceptID, display, maxsum, secundum=NULL) {
         if(is.na(temp_name)) temp_name <- "none" else {
 			if(!is.null(secundum))
 				if(!secundum %in% colnames(object@taxonViews)) {
-					stop("Value of 'secundum' is not included as column in slot 'taxonViews'")
+					stop(paste("Value of 'secundum' is not included as",
+									"column in slot 'taxonViews'"))
 				} else temp_name <- paste(temp_name, "-",
 							object@taxonViews[object@taxonViews$ViewID ==
 											temp_name, secundum])
@@ -117,7 +119,7 @@ overview_taxon <- function(object, ConceptID, display, maxsum, secundum=NULL) {
             cat("\n")
             cat("# synonyms (", nrow(Synonym[[paste(i)]]), "): ", sep="",
                     "\n")
-            for(j in 1:nrow(Synonym[[paste(i)]])) {
+            for(j in seq_len(nrow(Synonym[[paste(i)]]))) {
 				temp_name <- Synonym[[paste(i)]][j, display]
                 cat(paste(temp_name, collapse=" "), "\n")
             }

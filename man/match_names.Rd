@@ -1,6 +1,7 @@
 \name{match_names}
 \docType{methods}
 \alias{match_names}
+\alias{match_names,character,character-method}
 \alias{match_names,character,taxlist-method}
 
 \title{Search Matchings between Character and taxlist Objects}
@@ -10,6 +11,8 @@ Names provided in a character vector will be compared with names stored in slot
 using the function \code{\link{stringsim}}.
 }
 \usage{
+\S4method{match_names}{character,character}(x, object, best=5, clean=TRUE, ...)
+
 \S4method{match_names}{character,taxlist}(x, object, clean=TRUE, output="data.frame",
 	best=5, show_concepts=FALSE, accepted_only=FALSE, method="lcs", ...)
 }
@@ -33,6 +36,13 @@ using the function \code{\link{stringsim}}.
 For \code{output="list"} a list with the best matches (taxon usage name ID and
 similarity) for each queried name will be retrieved, where the number is set by
 argument \code{'best'}.
+
+Option \code{'accepted_only=TRUE'} will only work with
+\code{'output="data.frame"'}.
+This will be applied especially in those cases were the requested names have
+more than one match in the reference \code{\linkS4class{taxlist}} object
+(matching homonyms) and will retrieve the one name, that has the status of
+accepted name, otherwise no matchings will be retrieved.
 }
 \author{
 Miguel Alvarez, \email{kamapu78@gmail.com}.
