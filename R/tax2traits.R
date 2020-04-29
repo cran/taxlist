@@ -1,15 +1,50 @@
-# TODO:   Add taxonomy to slot 'taxonTraits'
-# 
-# Author: Miguel Alvarez
-################################################################################
-
-# Generic function
+#' @name tax2traits
+#' 
+#' @title Set taxonomic information as taxon traits
+#' 
+#' @description 
+#' Taxonomic classification can be included in [taxlist-class]
+#' objects within the information provided at slot `taxonRelations`.
+#' Nevertheless, for statistical analyses it may be more convenient to insert
+#' such information in the slot `taxonTraits`.
+#' 
+#' @param object An object of class [taxlist-class].
+#' @param get_names Logical value indicating whether taxon names should be
+#'     retrieved instead of taxon IDs.
+#' @param ... Further arguments to be passed among methods.
+#' 
+#' @details 
+#' This function can only be applied to objects containing parent-child
+#' relationships and information on taxonomic levels.
+#' 
+#' @return An object of class [taxlist-class] with taxonomy added
+#' as traits.
+#' 
+#' @author Miguel Alvarez \email{kamapu78@@gmail.com}.
+#' 
+#' @examples 
+#' ## Family Acanthaceae with children
+#' Acanthaceae <- subset(Easplist, TaxonName == "Acanthaceae", slot="names",
+#'     keep_children=TRUE)
+#' summary(Acanthaceae)
+#' 
+#' ## Insert taxonomy to taxon traits
+#' Acanthaceae <- tax2traits(Acanthaceae, get_names=TRUE)
+#' head(taxon_traits(Acanthaceae))
+#' 
+#' @rdname tax2traits
+#' 
+#' @exportMethod tax2traits
+#' 
 setGeneric("tax2traits",
 		function(object, ...)
 			standardGeneric("tax2traits")
 )
 
-# Method merging a list of taxon concepts
+#' @rdname tax2traits
+#' 
+#' @aliases tax2traits,taxlist-method
+#' 
 setMethod("tax2traits", signature(object="taxlist"),
 		function(object, get_names=FALSE, ...) {
 			# taxonomic table

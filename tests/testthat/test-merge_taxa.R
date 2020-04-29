@@ -1,8 +1,3 @@
-# TODO:   Add comment
-# 
-# Author: Miguel Alvarez
-################################################################################
-
 context("merge taxon concepts")
 
 test_that("taxa are merged", {
@@ -12,7 +7,8 @@ test_that("taxa are merged", {
 					TRUE)
 			expect_is(merge_taxa(Easplist, level="species"),
 					"taxlist")
-			## expect_is(merge_taxa(Easplist, c(206, 197), print_output=TRUE),
-			##         "taxlist")
+			result <- evaluate_promise(merge_taxa(Easplist, c(206, 197),
+							print_output=TRUE), print=TRUE)
+			expect_equal(grepl("Cyperus", result$output), TRUE)
 		}
 )

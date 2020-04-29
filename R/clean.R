@@ -1,15 +1,50 @@
-# TODO:   Clean loose links of a taxlist object
-# 
-# Author: Miguel Alvarez
-################################################################################
-
-# Generic function
+#' @name clean
+#' 
+#' @title Delete orphaned records
+#' 
+#' @description 
+#' Manipulation of slots may generate orphaned entries in
+#' [taxlist-class] objects.
+#' The function `clean` deletes such entries and restores the consistency
+#' of the objects.
+#' 
+#' @param object A [taxlist-class] object.
+#' @param times An integer indicating how many times the cleaning should be
+#'     repeated.
+#' @param ... Further arguments passed from or to other methods.
+#' 
+#' @details 
+#' Cleaning of objects will follow the deletion of orphaned names, orphaned
+#' taxon trait entries, and orphaned parent entries.
+#' 
+#' @return A clean [taxlist-class] object.
+#' 
+#' @author Miguel Alvarez.
+#' 
+#' @examples 
+#' ## Direct manipulation of slot taxonRelations generates an invalid object
+#' Easplist@taxonRelations <- Easplist@taxonRelations[1:5,]
+#' \dontrun{
+#' summary(Easplist)
+#' }	
+#' 
+#' ## Now apply cleaning
+#' Easplist <- clean(Easplist)
+#' summary(Easplist)
+#' 
+#' @rdname clean
+#' 
+#' @exportMethod clean
+#' 
 setGeneric("clean",
         function(object, ...)
             standardGeneric("clean")
 )
 
-# Write a function used one time
+#' One run clean function
+#' 
+#' @keywords internal
+#' 
 clean_once_taxlist <- function(object) {
 	# clean slot taxonRelations (lost accepted names)
 	object@taxonRelations <- object@taxonRelations[
@@ -30,7 +65,10 @@ clean_once_taxlist <- function(object) {
 	return(object)
 }
 
-# Method for 'taxlist' object
+#' @rdname clean
+#' 
+#' @aliases clean,taxlist-method
+#' 
 setMethod("clean", signature(object="taxlist"),
         function(object, times=2, ...) {
 			count <- 0

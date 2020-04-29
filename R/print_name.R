@@ -1,15 +1,82 @@
-# TODO:   Method for printing taxon in text
-# 
-# Author: Miguel Alvarez
-################################################################################
-
-# Set function as generic
+#' @name print_name
+#' 
+#' @title Format usage names for publications
+#' 
+#' @description 
+#' When writing on bio-diversity, usage names could be automatically inserted in
+#' documents including the typical italic format for different elements of a
+#' scientific name.
+#' The function `print_name` can be applied either in markdown documents or
+#' for graphics.
+#' 
+#' @param object An object of class [taxlist-class].
+#' @param id Integer containing either a concept or a name ID.
+#' @param concept Logical value, whether `id` corresponds to a concept ID
+#'     or a taxon usage name ID.
+#' @param second_mention Logical value, whether the genus name should be
+#'     abbreviated or not.
+#' @param include_author Logical value, whether authors of the name should be
+#'     mentioned or not.
+#' @param secundum Character value indicating the column in slot `taxonViews`
+#'     that will be mentioned as *secundum* (according to).
+#' @param style Character value indicating the alternative format for italics
+#'     (at the moment only markdown and html implemented).
+#' @param ... Further arguments passed among methods.
+#' 
+#' @details 
+#' In **Rmarkdown** documents use \code{`r I(print_name(Easplist, 206))`} for
+#' inserting a formatted a species name.
+#' 
+#' @return A character value including format to italic font.
+#' 
+#' @seealso [ape::mixedFontLabel()].
+#' 
+#' @author Miguel Alvarez \email{kamapu78@@gmail.com}
+#' 
+#' @examples 
+#' summary(Easplist, 363, secundum="secundum")
+#' 
+#' ## Empty plot
+#' plot(NA, xlim=c(0,5), ylim=c(7,1), bty="n", xaxt="n", xlab="",
+#'     ylab="options")
+#' 
+#' ## Accepted name with author
+#' text(0, 1, labels=print_name(Easplist, 363, style="expression"), pos=4)
+#' 
+#' ## Including taxon view
+#' text(0, 2, labels=print_name(Easplist, 363, style="expression",
+#'     secundum="secundum"), pos=4)
+#' 
+#' ## Second mention in text
+#' text(0, 3, labels=print_name(Easplist, 363, style="expression",
+#'     second_mention=TRUE), pos=4)
+#' 
+#' ## Using synonym
+#' text(0, 4, labels=print_name(Easplist, 50037, style="expression",
+#'     concept=FALSE), pos=4)
+#' 
+#' ## Markdown style
+#' text(0, 5, labels=print_name(Easplist, 363, style="markdown"), pos=4)
+#' 
+#' ## HTML style
+#' text(0, 6, labels=print_name(Easplist, 363, style="html"), pos=4)
+#' 
+#' ## LaTeX style for knitr
+#' text(0, 7, labels=print_name(Easplist, 363, style="knitr"), pos=4)
+#' 
+#' @rdname print_name
+#' 
+#' @exportMethod print_name
+#' 
 setGeneric("print_name",
 		function(object, id, ...)
 			standardGeneric("print_name")
 )
 
-# Set method
+#' @rdname print_name
+#' 
+#' @aliases print_name,taxlist,numeric-method
+#' 
 setMethod("print_name", signature(object="taxlist", id="numeric"),
 		function(object, id, concept=TRUE, second_mention=FALSE,
 				include_author=TRUE, secundum, style="markdown", ...) {

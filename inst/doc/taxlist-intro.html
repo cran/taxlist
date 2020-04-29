@@ -8,11 +8,11 @@
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta name="author" content="Miguel Alvarez" />
 
-<meta name="date" content="2020-01-10" />
+<meta name="date" content="2020-04-20" />
 
 <title>Applying taxlist to species lists on diversity records</title>
 
@@ -119,9 +119,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#header {
-text-align: center;
 }
 #TOC {
 clear: both;
@@ -290,7 +287,8 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
@@ -305,7 +303,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">Applying taxlist to species lists on diversity records</h1>
 <h4 class="author">Miguel Alvarez</h4>
-<h4 class="date">2020-01-10</h4>
+<h4 class="date">2020-04-20</h4>
 
 
 
@@ -445,7 +443,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## number of concepts in level complex: 1
 ## number of concepts in level genus: 1011
 ## number of concepts in level family: 186</code></pre>
-<p>Note that such information can get lost once applied <code>subset</code>, since the respective parents or children from the original data set are not anymore in the subset. May you like to recover parents and children, you can use the functions <code>get_paretns</code> or <code>get_children</code>, respectively.</p>
+<p>Note that such information can get lost once applied <code>subset</code>, since the respective parents or children from the original data set are not anymore in the subset. May you like to recover parents and children, you can use the functions <code>get_parents</code> or <code>get_children</code>, respectively.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">summary</span>(Papyrus, <span class="st">&quot;all&quot;</span>)</span></code></pre></div>
 <pre><code>## ------------------------------ 
 ## concept ID: 206 

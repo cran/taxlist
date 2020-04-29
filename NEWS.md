@@ -1,3 +1,17 @@
+taxlist 0.1.8
+=============
+
+### New Features
+
+* Function `taxlist2taxmap()` for the interaction between packages `taxlist` and `taxmap`.
+* Function `taxmap2taxlist()` for the conversion of `Taxmap` objects into `taxlist` ones.
+
+### Improvements
+
+* Roxygenized version.
+* Method `formula` for function `count_taxa()`.
+* New argument `fext` in function `backup_object()` setting the extension of the backup file.
+
 taxlist 0.1.7
 =============
 
@@ -15,6 +29,7 @@ taxlist 0.1.7
 * Method for function `$` matches all taxon concepts when retrieving information from slot **taxonTraits**.
 * Missing argument **idx2** will be set as **idx1** in functions `replace_idx()` and `replace_na()`.
 * Function `replace_view()` deprecated.
+* Example data set cleaned (specifically author names)
 
 ### Bug Fixes
 

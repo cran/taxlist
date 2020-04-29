@@ -1,9 +1,46 @@
-# TODO:   subset methods for taxlist objects
-# 
-# Author: Miguel Alvarez
-################################################################################
-
-# subset method for taxlist objects
+#' @name subset
+#' 
+#' @title Subset method for taxlist objects
+#' 
+#' @description 
+#' Subset of [taxlist-class] objects will be done applying either
+#' logical operations or pattern matchings.
+#' Subsets can be referred to information contained either in the slot
+#' `taxonNames`, `taxonRelations` or `taxonTraits`.
+#' 
+#' @param x Object of class [taxlist-class].
+#' @param subset Logical vector or logical operation to apply as subset.
+#' @param slot Character value indicating the slot to be used for the subset.
+#' @param keep_children Logical value applied to hierarchical structures.
+#' @param keep_parents Logical value applied to hierarchical structures.
+#' @param ... Further arguments to be passed to or from other methods.
+#' 
+#' @details 
+#' The argument `subset` will be applied to the slot specified in argument
+#' `slot`.
+#' This argument also allows partial matchings.
+#' 
+#' Arguments `keep_children` and `keep_parents` are applied to objects
+#' including parent-child relationships.
+#' When those arguments are set as `FALSE` (the default), children or parents
+#' of selected taxon concepts will not be included in the subset.
+#' 
+#' Be aware that [subset()] won't work properly inside of function definitions.
+#' 
+#' @return An object of class [taxlist-class].
+#' 
+#' @author Miguel Alvarez \email{kamapu78@@gmail.com}
+#' 
+#' @examples 
+#' Easplist <- subset(Easplist, lf_behn_2018 == "reed_plant", slot="traits")
+#' summary(Easplist)
+#' 
+#' summary(as.factor(Easplist$lf_behn_2018))
+#' 
+#' @aliases subset,taxlist-method
+#' 
+#' @exportMethod subset
+#' 
 setMethod("subset", signature(x="taxlist"),
         function(x, subset, slot="names", keep_children=FALSE,
                 keep_parents=FALSE, ...) {

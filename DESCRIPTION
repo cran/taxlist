@@ -1,5 +1,5 @@
 Package: taxlist
-Version: 0.1.7
+Version: 0.1.8
 Encoding: UTF-8
 Title: Handling Taxonomic Lists
 Authors@R: c(
@@ -12,7 +12,7 @@ Depends: R(>= 3.5.0)
 Imports: foreign, methods, stats, taxa, taxize, stringdist, utils,
         vegdata
 Suggests: devtools, goodpractice, knitr, stringi, testthat, rmarkdown,
-        covr
+        roxygen2, covr
 LazyData: true
 Description: Handling taxonomic lists through objects of class 'taxlist'.
     This package provides functions to import species lists from 'Turboveg'
@@ -23,21 +23,22 @@ License: GPL (>= 2)
 URL: https://cran.r-project.org/package=taxlist,
         https://github.com/kamapu/taxlist
 BugReports: https://github.com/kamapu/taxlist/issues
-Collate: 'NULLing.R''auxiliary_functions.R''deprecated-functions.R'
-        'replace_x.R''dissect_name.R''clean_strings.R'
-        'taxlist-class.R''clean.R''as.list.R''taxon_views.R''add_view.R'
-        'count_taxa.R''taxon_names.R''taxon_relations.R''taxon_traits.R'
-        'levels.R''add_concept.R''update_concept.R''add_synonym.R'
-        'accepted_name.R''synonyms.R''basionym.R''update_name.R''delete_name.R'
-        'get_children.R' 'change_concept.R''Extract.R''subset.R'
-        'merge_taxa.R''backup_object.R''load_last.R''summary.R'
-        'df2taxlist.R''tv2taxlist.R''tnrs.R''tax2traits.R''match_names.R''print_name.R'
+Collate: 'imports.R' 'NULLing.R' 'internal.R' 'deprecated-functions.R'
+        'replace_x.R' 'dissect_name.R' 'clean_strings.R'
+        'taxlist-class.R' 'clean.R' 'as.list.R' 'taxon_views.R'
+        'count_taxa.R' 'taxon_names.R' 'taxon_relations.R'
+        'taxon_traits.R' 'levels.R' 'accepted_name.R' 'get_children.R'
+        'merge_taxa.R' 'Extract.R' 'subset.R' 'backup_object.R'
+        'summary.R' 'df2taxlist.R' 'tv2taxlist.R' 'tnrs.R'
+        'tax2traits.R' 'match_names.R' 'print_name.R'
+        'taxlist2taxmap.R' 'Easplist-data.R' 'taxlist-package.R'
         'StartMessage.R'
 VignetteBuilder: knitr
+RoxygenNote: 7.1.0
 NeedsCompilation: no
-Packaged: 2020-01-10 09:20:13 UTC; ma
+Packaged: 2020-04-20 10:13:32 UTC; ma
 Author: Miguel Alvarez [aut, cre] (<https://orcid.org/0000-0003-1500-1834>),
   Zachary Foster [ctb] (<https://orcid.org/0000-0002-5075-0948>)
 Maintainer: Miguel Alvarez <kamapu78@gmail.com>
 Repository: CRAN
-Date/Publication: 2020-01-10 16:30:02 UTC
+Date/Publication: 2020-04-29 17:20:03 UTC
