@@ -1,5 +1,5 @@
 Package: taxlist
-Version: 0.1.8
+Version: 0.1.9
 Encoding: UTF-8
 Title: Handling Taxonomic Lists
 Authors@R: c(
@@ -36,9 +36,9 @@ Collate: 'imports.R' 'NULLing.R' 'internal.R' 'deprecated-functions.R'
 VignetteBuilder: knitr
 RoxygenNote: 7.1.0
 NeedsCompilation: no
-Packaged: 2020-04-20 10:13:32 UTC; ma
+Packaged: 2020-05-30 10:13:31 UTC; ma
 Author: Miguel Alvarez [aut, cre] (<https://orcid.org/0000-0003-1500-1834>),
   Zachary Foster [ctb] (<https://orcid.org/0000-0002-5075-0948>)
 Maintainer: Miguel Alvarez <kamapu78@gmail.com>
 Repository: CRAN
-Date/Publication: 2020-04-29 17:20:03 UTC
+Date/Publication: 2020-05-31 04:20:09 UTC

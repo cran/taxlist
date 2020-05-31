@@ -1,6 +1,6 @@
-987481192c3300a497535a1d36d42377 *DESCRIPTION
+b9ffa0d9245644428f3fe4765f342a2a *DESCRIPTION
 af9ab98ce735702512e7926fc26f395a *NAMESPACE
-74399154e48e7a46f692cf356d6865e3 *NEWS.md
+b5e2194cc98022f3fb9503cf8e7af360 *NEWS.md
 25a787e2099543f3c90d5049dcfcbe77 *R/Easplist-data.R
 c69ec6651b3ec263da1a052b260e0221 *R/Extract.R
 c0f6b1d14995445dc58f3e322c68ecff *R/NULLing.R
@@ -25,7 +25,7 @@ a03e767cea88ba122e078c01ab1cdc6f *R/replace_x.R
 0149fbec2425772b349758f2ff006561 *R/subset.R
 ddc91fcc3dd1765904b55eb3a3fe775a *R/summary.R
 33cf9cd478e5c9e912dd7171edccbfc3 *R/tax2traits.R
-ee4e6a5a4bcb61744d05a1cb4df1b833 *R/taxlist-class.R
+ee6e2601ac509fc6400db4648ddd1ae8 *R/taxlist-class.R
 962a518c726bf43f9525d7c87310d257 *R/taxlist-package.R
 f8db7a13fe75323667b423d0cc454257 *R/taxlist2taxmap.R
 8303a517a7999867aa1b0c29386c48f1 *R/taxon_names.R
@@ -35,13 +35,13 @@ ff7da71a1382c7e79469ba643d34d903 *R/taxon_views.R
 9662e108433813fc6fd4a351eaa700ab *R/tnrs.R
 cb6e5bc2fff3eba4934ac4fd135dcd7f *R/tv2taxlist.R
 6bb491db76a48fd5401df1118de66621 *build/vignette.rds
-f0329dd15cff4f91312d160128daef37 *data/Easplist.rda
+b4e56983626887a4c952d7ed0fa4635f *data/Easplist.rda
 1f3d6ff8dbcafb8631712cdb44cd26c9 *inst/CITATION
 610adcb7847869d631fb99aab3185c7a *inst/cyperus/names.csv
 7f4c5d2d2d084fd0dcf6af515e509f8c *inst/cyperus/traits.csv
 3b98bf43af91c2a7d5ba149ae5a3ca13 *inst/doc/taxlist-intro.R
 f7dd0ed1d52eb66cfab58f6c0b130386 *inst/doc/taxlist-intro.Rmd
-c5079ee4a478838fd041f6470f4dd357 *inst/doc/taxlist-intro.html
+f5837600eea5567a3355316d1ede5e2c *inst/doc/taxlist-intro.html
 874618434b3a934a58a34820fc613688 *inst/extdata/Podocarpus_2020-01-10.rda
 17e323a408f5ee5aed593ca441d68b74 *inst/taxlist_examples/examples.Rda
 e21aff79ffb6559bbef012257c39a39c *inst/tv_data/species/cyperus/ecodbase.dbf
