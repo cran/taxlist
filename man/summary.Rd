@@ -3,6 +3,8 @@
 \name{summary}
 \alias{summary}
 \alias{summary,taxlist-method}
+\alias{show,taxlist-method}
+\alias{print,taxlist-method}
 \title{Print overviews for taxlist Objects and their content}
 \usage{
 \S4method{summary}{taxlist}(
@@ -15,9 +17,13 @@
   secundum = NULL,
   ...
 )
+
+\S4method{show}{taxlist}(object)
+
+\S4method{print}{taxlist}(x, ...)
 }
 \arguments{
-\item{object}{A \linkS4class{taxlist} object.}
+\item{object, x}{A \linkS4class{taxlist} object.}
 
 \item{ConceptID}{IDs of concepts to be displayed in the summary.}
 
@@ -64,6 +70,12 @@ For big objects it will be recommended to set \code{units="Mb"} (see also
 ## summary of the object
 summary(Easplist, units="Mb")
 
+## the same output
+summary(Easplist)
+show(Easplist)
+print(Easplist)
+Easplist
+
 ## summary for two taxa
 summary(Easplist, c(51128,51140))
 
@@ -71,7 +83,7 @@ summary(Easplist, c(51128,51140))
 summary(Easplist, "Acmella")
 
 ## summary for the first 10 taxa
-summary(Easplist, "all", maxsum=10)
+summary(object=Easplist, ConceptID="all", maxsum=10)
 
 }
 \seealso{

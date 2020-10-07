@@ -7,14 +7,12 @@
 \alias{levels<-}
 \title{Set and retrieves hierarchical levels}
 \usage{
-\S4method{levels}{taxlist}(x, ...)
+\S4method{levels}{taxlist}(x)
 
 \S4method{levels}{taxlist}(x) <- value
 }
 \arguments{
 \item{x}{A \linkS4class{taxlist} object.}
-
-\item{...}{Additional arguments passed among methods.}
 
 \item{value}{A character vector with replacement values for levels o \code{x}.}
 }
@@ -47,8 +45,8 @@ A replacement method of the form \code{levels(x) <- value} it is also implemente
 taxlist::levels(Easplist)
 
 ## Add aggregate as new taxonomic level
-levels(Easplist) <- c("form","variety","subspecies","species",
-    "complex", "aggregate","genus","family")
+levels(Easplist) <- c("form", "variety", "subspecies", "species",
+    "complex", "aggregate", "genus", "family")
 summary(Easplist)
 
 }

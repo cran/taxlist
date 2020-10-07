@@ -31,6 +31,15 @@
 #' @examples 
 #' head(taxon_traits(Easplist))
 #' 
+#' ## Updating traits for Launaea cornuta
+#' summary(Easplist, "Launaea cornuta")
+#' accepted_name(taxlist=Easplist, ConceptID=355, show_traits=TRUE)
+#' 
+#' # Update
+#' Easplist <- update_trait(taxlist=Easplist, ConceptID=355,
+#'     lf_behn_2018="annual")
+#' accepted_name(taxlist=Easplist, ConceptID=355, show_traits=TRUE)
+#' 
 #' @rdname taxon_traits
 #' 
 #' @exportMethod taxon_traits
@@ -70,10 +79,10 @@ setReplaceMethod("taxon_traits", signature(taxlist="taxlist",
                 value$TaxonConceptID <- as.integer(value$TaxonConceptID)
             if(any(duplicated(value$TaxonConceptID))) {
                 warning("duplicated concepts will be deleted from 'value'")
-                value <- value[unique(value$TaxonConceptID),]
+                value <- value[unique(value$TaxonConceptID), ]
             }
             taxlist@taxonTraits <- value[value$TaxonConceptID %in%
-                            taxlist@taxonRelations$TaxonConceptID,]
+                            taxlist@taxonRelations$TaxonConceptID, ]
             return(taxlist)
         }
 )
@@ -101,14 +110,14 @@ setMethod("update_trait", signature(taxlist="taxlist", ConceptID="numeric"),
 			new_entries <- list(...)
 			for(i in names(new_entries)[!names(new_entries) %in%
 							colnames(taxlist@taxonTraits)])
-				taxlist@taxonTraits[,i] <- rep(NA, nrow(taxlist@taxonTraits))
+				taxlist@taxonTraits[ ,i] <- rep(NA, nrow(taxlist@taxonTraits))
 			if(any(!ConceptID %in% taxlist@taxonTraits$TaxonConceptID)) {
 				df2 <-data.frame(TaxonConceptID=ConceptID[!ConceptID %in%
 										taxlist@taxonTraits$TaxonConceptID],
 						stringsAsFactors=FALSE)
 				for(i in colnames(taxlist@taxonTraits)[
 						colnames(taxlist@taxonTraits) != "TaxonConceptID"])
-					df2[,i] <- NA
+					df2[ ,i] <- NA
 				taxlist@taxonTraits <- do.call(rbind, list(taxlist@taxonTraits,
 								df2))
 			}

@@ -69,20 +69,24 @@ For adding new taxon concepts as well you should use \code{\link[=add_concept]{a
 }
 \examples{
 ## Display of slot 'taxonNames'
-Euclea <- subset(Easplist, charmatch("Euclea", TaxonName), slot="names",
-    keep_children=TRUE)
-summary(Euclea)
+Euclea <- subset(x=Easplist, subset=charmatch("Euclea", TaxonName),
+    slot="names", keep_children=TRUE)
+Euclea
 taxon_names(Euclea)
 
 ## Insert a synonym to Diospyros scabra
 summary(Easplist, "Diospyros scabra")
-Easplist <- add_synonym(Easplist, 51793, TaxonName="Maba scabra",
-    AuthorName="Chiov.")
+Easplist <- add_synonym(taxlist=Easplist, ConceptID=51793,
+    TaxonName="Maba scabra", AuthorName="Chiov.")
 summary(Easplist, "Diospyros scabra")
 
 ## Delete a synonym of Launaea cornuta
 summary(Easplist, "Launaea cornuta")
 Easplist <- delete_name(Easplist, 53821)
+summary(Easplist, "Launaea cornuta")
+
+## Hypothetical correction in author name in Launaea cornuta
+Easplist <- update_name(taxlist=Easplist, UsageID=355, AuthorName="L.")
 summary(Easplist, "Launaea cornuta")
 
 }

@@ -35,20 +35,24 @@
 #' 
 #' @examples 
 #' ## Display of slot 'taxonNames'
-#' Euclea <- subset(Easplist, charmatch("Euclea", TaxonName), slot="names",
-#'     keep_children=TRUE)
-#' summary(Euclea)
+#' Euclea <- subset(x=Easplist, subset=charmatch("Euclea", TaxonName),
+#'     slot="names", keep_children=TRUE)
+#' Euclea
 #' taxon_names(Euclea)
 #' 
 #' ## Insert a synonym to Diospyros scabra
 #' summary(Easplist, "Diospyros scabra")
-#' Easplist <- add_synonym(Easplist, 51793, TaxonName="Maba scabra",
-#'     AuthorName="Chiov.")
+#' Easplist <- add_synonym(taxlist=Easplist, ConceptID=51793,
+#'     TaxonName="Maba scabra", AuthorName="Chiov.")
 #' summary(Easplist, "Diospyros scabra")
 #' 
 #' ## Delete a synonym of Launaea cornuta
 #' summary(Easplist, "Launaea cornuta")
 #' Easplist <- delete_name(Easplist, 53821)
+#' summary(Easplist, "Launaea cornuta")
+#' 
+#' ## Hypothetical correction in author name in Launaea cornuta
+#' Easplist <- update_name(taxlist=Easplist, UsageID=355, AuthorName="L.")
 #' summary(Easplist, "Launaea cornuta")
 #' 
 #' @rdname taxon_names
@@ -121,7 +125,7 @@ setMethod("add_synonym", signature(taxlist="taxlist"),
 				new_name[[i]] <- rep(NA, length(new_name$TaxonConceptID))
 			for(i in names(new_name)[!names(new_name) %in%
 							colnames(taxlist@taxonNames)])
-				taxlist@taxonNames[,i] <- NA
+				taxlist@taxonNames[ ,i] <- NA
 			taxlist@taxonNames <- do.call(rbind,
 					list(taxlist@taxonNames,
 							new_name[match(colnames(taxlist@taxonNames),
@@ -161,7 +165,7 @@ setMethod("update_name", signature(taxlist="taxlist", UsageID="numeric"),
 			for(i in colnames(new_entries))
 				taxlist@taxonNames[match(UsageID,
 								taxlist@taxonNames$TaxonUsageID),
-						i] <- new_entries[,i]
+						i] <- new_entries[ ,i]
 			return(taxlist)
 		}
 )
@@ -190,7 +194,7 @@ setMethod("delete_name", signature(taxlist="taxlist", UsageID="numeric"),
 				stop(paste("Values in 'UsageID' are not allowed to be",
 								"basionyms in 'taxlist'."))
 			taxlist@taxonNames <- taxlist@taxonNames[
-					!taxlist@taxonNames$TaxonUsageID %in% UsageID,]
+					!taxlist@taxonNames$TaxonUsageID %in% UsageID, ]
 			return(taxlist)
 		}
 )

@@ -9,6 +9,8 @@
 #' @param x A data frame or a character vector with taxon names.
 #' @param AcceptedName A logical vector indicating accepted names with value
 #'     `TRUE`.
+#' @param levels A vector with the names of the taxonomic ranks. This argument
+#'     is passed to [taxlist::levels()].
 #' @param ... Additional vectors to be added as columns in slot`taxonNames`.
 #' 
 #' @details 
@@ -36,12 +38,12 @@
 #' 
 #' @examples 
 #' ## Read the table with names of Cyperus species
-#' Cyperus <- read.csv(file.path(path.package("taxlist"), "cyperus",
+#' Cyperus <- read.csv(file=file.path(path.package("taxlist"), "cyperus",
 #'     "names.csv"), stringsAsFactors=FALSE)
 #' head(Cyperus)
 #' 
 #' ## Convert to 'taxlist' object
-#' Cyperus <- df2taxlist(Cyperus, AcceptedName=!Cyperus$SYNONYM)
+#' Cyperus <- df2taxlist(Cyperus, AcceptedName =! Cyperus$SYNONYM)
 #' summary(Cyperus)
 #' 
 #' ## Create a 'taxlist' object from character vectors
@@ -62,13 +64,13 @@ setGeneric("df2taxlist",
 #' @aliases df2taxlist,data.frame,logical-method
 #' 
 setMethod("df2taxlist", signature(x="data.frame", AcceptedName="logical"),
-        function(x, AcceptedName, ...) {
+        function(x, AcceptedName, levels, ...) {
             # If author names missing
             if(!"AuthorName" %in% colnames(x))
                 x$AuthorName <- NA
-            if(any(duplicated(x[,c("TaxonName","AuthorName")]))) {
+            if(any(duplicated(x[ ,c("TaxonName","AuthorName")]))) {
                 warning("Some duplicated combinations will be deleted")
-                x <- x[!duplicated(x[,c("TaxonName","AuthorName")]),]
+                x <- x[!duplicated(x[ ,c("TaxonName","AuthorName")]), ]
             }
             # Some tests previous to run the function
             AcceptedName <- substitute(AcceptedName)
@@ -97,20 +99,33 @@ setMethod("df2taxlist", signature(x="data.frame", AcceptedName="logical"),
             # taxonRelations
             taxonRelations <- x[AcceptedName,c("TaxonConceptID","TaxonUsageID")]
             colnames(taxonRelations)[2] <- "AcceptedName"
-            # taxonNames
+			# In the case that ranks are provided
+			if("Level" %in% colnames(x)) {
+				taxonRelations$Level <- x$Level
+				x <- x[,colnames(x) != "Level"]
+			}
+			# In the case that parents are provided
+			if("Parent" %in% colnames(x)) {
+				taxonRelations$Parent <- x$Parent
+				x <- x[,colnames(x) != "Parent"]
+			}
+			# taxonNames
             extra_cols <- list(...)
             suppressWarnings({
                         if(length(extra_cols > 0))
-                            for(i in names(extra_cols)) x[,i] <- extra_cols[[i]]
+                            for(i in names(extra_cols)) x[ ,i] <-
+										extra_cols[[i]]
                     }
             )
             taxlist <- new("taxlist")
 			## for(i in colnames(taxlist@taxonNames))
-			##     if(!i %in% colnames(x)) x[,i] <- NA
+			##     if(!i %in% colnames(x)) x[ ,i] <- NA
             for(i in colnames(taxlist@taxonRelations))
-                if(!i %in% colnames(taxonRelations)) taxonRelations[,i] <- NA
+                if(!i %in% colnames(taxonRelations)) taxonRelations[ ,i] <- NA
             taxlist@taxonNames <- x
             taxlist@taxonRelations <- taxonRelations
+			if(!missing(levels))
+				levels(taxlist) <- levels
             return(taxlist)
         }
 )
@@ -120,7 +135,7 @@ setMethod("df2taxlist", signature(x="data.frame", AcceptedName="logical"),
 #' @aliases df2taxlist,data.frame,missing-method
 #' 
 setMethod("df2taxlist", signature(x="data.frame", AcceptedName="missing"),
-        function(x, ...) return(df2taxlist(x, TRUE))
+        function(x, ...) return(df2taxlist(x, TRUE, ...))
 )
 
 #' @rdname df2taxlist

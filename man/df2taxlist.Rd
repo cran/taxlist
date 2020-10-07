@@ -9,7 +9,7 @@
 \usage{
 df2taxlist(x, AcceptedName, ...)
 
-\S4method{df2taxlist}{data.frame,logical}(x, AcceptedName, ...)
+\S4method{df2taxlist}{data.frame,logical}(x, AcceptedName, levels, ...)
 
 \S4method{df2taxlist}{data.frame,missing}(x, AcceptedName, ...)
 
@@ -22,6 +22,9 @@ df2taxlist(x, AcceptedName, ...)
 \code{TRUE}.}
 
 \item{...}{Additional vectors to be added as columns in slot\code{taxonNames}.}
+
+\item{levels}{A vector with the names of the taxonomic ranks. This argument
+is passed to \code{\link[=levels]{levels()}}.}
 }
 \value{
 A \linkS4class{taxlist} object.
@@ -51,12 +54,12 @@ provided in this package.
 }
 \examples{
 ## Read the table with names of Cyperus species
-Cyperus <- read.csv(file.path(path.package("taxlist"), "cyperus",
+Cyperus <- read.csv(file=file.path(path.package("taxlist"), "cyperus",
     "names.csv"), stringsAsFactors=FALSE)
 head(Cyperus)
 
 ## Convert to 'taxlist' object
-Cyperus <- df2taxlist(Cyperus, AcceptedName=!Cyperus$SYNONYM)
+Cyperus <- df2taxlist(Cyperus, AcceptedName =! Cyperus$SYNONYM)
 summary(Cyperus)
 
 ## Create a 'taxlist' object from character vectors

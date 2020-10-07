@@ -13,17 +13,17 @@ vignette: >
 # 1. Getting started
 
 The package `taxlist` aims to implement an object class and functions (methods)
-for handling taxonomic data i **R**.
+for handling taxonomic data in **R**.
 The homonymous object class `taxlist` can be further linked to biodiversity
 records (e.g. for observations in vegetation plots).
 
 The `taxlist` package is developed on the repository **GitHub**
-([https://github.com/kamapu/taxlist](https://github.com/kamapu/taxlist)) and can
+([https://github.com/ropensci/taxlist](https://github.com/ropensci/taxlist)) and can
 be installed in your R-session using the package `devtools`:
 
 ```{r install_github, eval=FALSE}
 library(devtools)
-install_github("kamapu/taxlist", build_vignettes=TRUE)
+install_github("ropensci/taxlist", build_vignettes=TRUE)
 ```
 
 Since this package is already available in the Comprehensive R Archive Network
@@ -67,14 +67,14 @@ relev&eacute;s collected at the borderline between the
 The digitized data can be loaded by following command:
 
 ```{r load_example_table}
-load(url("https://github.com/kamapu/thisdataismine/raw/master/data/Cross.rda"))
+load(file.path(path.package("taxlist"), "Cross.rda"))
 ```
 
 The data is formatted as `data.frame` in **R**, including the names of the
 species in the first column:
 
 ```{r head_example}
-head(Cross[,1:8])
+head(Cross[ ,1:8])
 ```
 
 ## 2.2 From plain list to taxlist
@@ -85,7 +85,7 @@ Thus, we can use this character vector to construct a `taxlist` object.
 This can be achieved through the function `df2taxlist`.
 
 ```{r character2taxlist}
-Splist <- Cross[,"TaxonName"]
+Splist <- Cross[ ,"TaxonName"]
 Splist <- df2taxlist(Splist)
 summary(Splist)
 ```
@@ -110,7 +110,7 @@ This data is a subset of the species list used by the database **SWEA-Dataveg**
 
 ```{r load_easplist}
 data(Easplist)
-summary(Easplist)
+Easplist
 ```
 
 
@@ -141,22 +141,22 @@ argument `slot`.
 
 
 ```{r papyrus_otp1, results="hide"}
-Papyrus <- subset(Easplist, grepl("papyrus", TaxonName), slot="names")
+Papyrus <- subset(x=Easplist, subset=grepl("papyrus", TaxonName), slot="names")
 summary(Papyrus, "all")
 ```
 
 Or the very same results:
 
 ```{r papyrus_opt2, results="hide"}
-Papyrus <- subset(Easplist, TaxonConceptID == 206, slot="relations")
+Papyrus <- subset(x=Easplist, subset=TaxonConceptID == 206, slot="relations")
 summary(Papyrus, "all")
 ```
 
 Similarly, you can look for a specific name.
 
 ```{r phragmites, results="hide"}
-Phraaus <- subset(Easplist, charmatch("Phragmites australis", TaxonName),
-	slot="names")
+Phraaus <- subset(x=Easplist,
+		subset=charmatch("Phragmites australis", TaxonName), slot="names")
 summary(Phraaus, "all")
 ```
 
@@ -169,11 +169,11 @@ Such information is also included in the data `Easplist`, as shown in the
 summary output.
 
 ```{r summary_again}
-summary(Easplist)
+Easplist
 ```
 
-Note that such information can get lost once applied `subset`, since the
-respective parents or children from the original data set are not anymore in
+Note that such information can get lost once `subset()` has been applied, since
+the respective parents or children from the original data set are not anymore in
 the subset.
 May you like to recover parents and children, you can use the functions
 `get_parents` or `get_children`, respectively.
@@ -203,7 +203,7 @@ The content for the taxonomic list is included in a data frame and can be
 downloaded by following command:
 
 ```{r load_syntax}
-load(url("https://github.com/kamapu/Guides/raw/master/data/wetlands_syntax.rda"))
+load(file.path(path.package("taxlist"), "wetlands_syntax.rda"))
 ```
 
 The data frame `Concepts` contains the list of syntaxon names that are
@@ -222,11 +222,11 @@ taxon_views(Syntax) <- data.frame(ViewID=1, Secundum="Alvarez (2017)",
         Title="Classification of aquatic and semi-aquatic vegetation in East Africa",
         stringsAsFactors=FALSE)
 
-Syntax <- with(Concepts, add_concept(Syntax, TaxonName=TaxonName,
-                AuthorName=AuthorName, Parent=Parent, Level=Level,
-                ViewID=rep(1, nrow(Concepts))))
+Syntax <- add_concept(Syntax, TaxonName=Concepts$TaxonName,
+		AuthorName=Concepts$AuthorName, Parent=Concepts$Parent,
+		Level=Concepts$Level, ViewID=rep(1, nrow(Concepts)))
 
-summary(Syntax)
+Syntax
 ```
 
 Note that the function `new` created an empty object (prototype), while
@@ -243,8 +243,8 @@ Synonyms are included in the data frame `Synonyms`.
 
 ```{r adding_synonyms}
 head(Synonyms)
-Syntax <- with(Synonyms, add_synonym(Syntax, ConceptID=TaxonConceptID,
-                TaxonName=TaxonName, AuthorName=AuthorName))
+Syntax <- add_synonym(Syntax, ConceptID=Synonyms$TaxonConceptID,
+		TaxonName=Synonyms$TaxonName, AuthorName=Synonyms$AuthorName)
 ```
 
 Finally, the codes provided for the associations will be inserted as traits
@@ -253,7 +253,7 @@ properties) of them in the slot `taxonTraits`.
 ```{r adding_traits}
 head(Codes)
 taxon_traits(Syntax) <- Codes
-summary(Syntax)
+Syntax
 ```
 
 For instance, you may like to get the parental chain from an association (e.g.

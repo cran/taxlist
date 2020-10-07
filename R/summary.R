@@ -66,9 +66,9 @@ overview_taxon <- function(object, ConceptID, display, maxsum, secundum=NULL) {
     # Create index for synonyms
     Synonym <- list()
     for(i in ConceptID) {
-        temp_name <- object@taxonNames[object@taxonNames$TaxonConceptID == i,]
+        temp_name <- object@taxonNames[object@taxonNames$TaxonConceptID == i, ]
         temp_name <- temp_name[!temp_name$TaxonUsageID %in%
-						Names$TaxonUsageID[Names$TaxonConceptID == i],]
+						Names$TaxonUsageID[Names$TaxonConceptID == i], ]
         if(length(temp_name) > 0) Synonym[[paste(i)]] <- temp_name
     }
     # display option
@@ -132,13 +132,15 @@ overview_taxon <- function(object, ConceptID, display, maxsum, secundum=NULL) {
 
 #' @name summary
 #' 
+#' @rdname summary
+#' 
 #' @title Print overviews for taxlist Objects and their content
 #' 
 #' @description 
 #' A method to display either an overview of the content of
 #' [taxlist-class] objects or an overview of selected taxa.
 #' 
-#' @param object A [taxlist-class] object.
+#' @param object,x A [taxlist-class] object.
 #' @param ConceptID IDs of concepts to be displayed in the summary.
 #' @param units Character value indicating the units shown in the object's
 #'     allocated space.
@@ -178,6 +180,12 @@ overview_taxon <- function(object, ConceptID, display, maxsum, secundum=NULL) {
 #' ## summary of the object
 #' summary(Easplist, units="Mb")
 #' 
+#' ## the same output
+#' summary(Easplist)
+#' show(Easplist)
+#' print(Easplist)
+#' Easplist
+#' 
 #' ## summary for two taxa
 #' summary(Easplist, c(51128,51140))
 #' 
@@ -185,7 +193,7 @@ overview_taxon <- function(object, ConceptID, display, maxsum, secundum=NULL) {
 #' summary(Easplist, "Acmella")
 #' 
 #' ## summary for the first 10 taxa
-#' summary(Easplist, "all", maxsum=10)
+#' summary(object=Easplist, ConceptID="all", maxsum=10)
 #' 
 #' @aliases summary,taxlist-method
 #' 
@@ -198,4 +206,34 @@ setMethod("summary", signature(object="taxlist"),
                 overview_taxlist(object, units, check_validity) else
                 overview_taxon(object, ConceptID, display, maxsum, secundum)
         }
+)
+
+#' @rdname summary
+#' 
+#' @aliases show,taxlist-method
+#' 
+#' @exportMethod show
+#' 
+setMethod("show", signature(object="taxlist"),
+		function(object) {
+			summary(object)
+		}
+)
+
+#' @exportMethod print
+#' 
+if(!isGeneric("print"))
+	setGeneric("print",
+			function(x, ...)
+				standardGeneric("print")
+	)
+
+#' @rdname summary
+#' 
+#' @aliases print,taxlist-method
+#' 
+setMethod("print", signature(x="taxlist"),
+		function(x, ...) {
+			summary(x, ...)
+		}
 )

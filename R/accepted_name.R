@@ -56,8 +56,8 @@
 #' 
 #' ## Inserting a new name first
 #' summary(Easplist, "Basella alba")
-#' Easplist <- add_synonym(Easplist, 68, TaxonName="Basella cordifolia",
-#'     AuthorName="Lam.")
+#' Easplist <- add_synonym(taxlist=Easplist, ConceptID=68,
+#'     TaxonName="Basella cordifolia", AuthorName="Lam.")
 #' summary(Easplist, 68)
 #' accepted_name(Easplist, 68) <- 56139
 #' summary(Easplist, 68)
@@ -81,11 +81,11 @@ setMethod("accepted_name", signature(taxlist="taxlist", ConceptID="numeric"),
                     taxlist@taxonRelations$TaxonConceptID %in%
                             ConceptID,c("TaxonConceptID","AcceptedName")]
             for(i in c("TaxonName","AuthorName"))
-                AcceptedName[,i] <- taxlist@taxonNames[
+                AcceptedName[ ,i] <- taxlist@taxonNames[
                         match(AcceptedName$AcceptedName,
                                 taxlist@taxonNames$TaxonUsageID),i]
             colnames(AcceptedName)[2] <- "TaxonUsageID"
-			AcceptedName <- merge(AcceptedName, taxlist@taxonRelations[,
+			AcceptedName <- merge(AcceptedName, taxlist@taxonRelations[ ,
 							c("TaxonConceptID","ViewID","Level")], sort=FALSE)
 			if(show_traits)
 				AcceptedName <- merge(AcceptedName, taxlist@taxonTraits,
@@ -157,14 +157,25 @@ setMethod("synonyms", signature(taxlist="taxlist", ConceptID="numeric"),
 			Syn <- taxlist@taxonNames[taxlist@taxonNames$TaxonConceptID %in%
 							ConceptID,c("TaxonUsageID","TaxonConceptID",
 							"TaxonName","AuthorName")]
-			Syn$AcceptedName <- with(taxlist@taxonRelations,
-					AcceptedName[match(Syn$TaxonConceptID, TaxonConceptID)])
-			Syn$AuthorAcceptedName <- with(taxlist@taxonNames,
-					AuthorName[match(Syn$AcceptedName, TaxonUsageID)])
-			Syn$AcceptedName <- with(taxlist@taxonNames,
-					TaxonName[match(Syn$AcceptedName, TaxonUsageID)])
-			Syn <- Syn[!Syn$TaxonUsageID %in% with(taxlist@taxonRelations,
-							AcceptedName[TaxonConceptID %in% ConceptID]),]
+			## Syn$AcceptedName <- with(taxlist@taxonRelations,
+			##         AcceptedName[match(Syn$TaxonConceptID, TaxonConceptID)])
+			Syn$AcceptedName <- taxlist@taxonRelations$AcceptedName[
+					match(Syn$TaxonConceptID,
+							taxlist@taxonRelations$TaxonConceptID)]
+			## Syn$AuthorAcceptedName <- with(taxlist@taxonNames,
+			##         AuthorName[match(Syn$AcceptedName, TaxonUsageID)])
+			Syn$AuthorAcceptedName <- taxlist@taxonNames$AuthorName[
+					match(Syn$AcceptedName, taxlist@taxonNames$TaxonUsageID)]
+			## Syn$AcceptedName <- with(taxlist@taxonNames,
+			##         TaxonName[match(Syn$AcceptedName, TaxonUsageID)])
+			Syn$AcceptedName <- taxlist@taxonNames$TaxonName[
+					match(Syn$AcceptedName, taxlist@taxonNames$TaxonUsageID)]
+			## Syn <- Syn[!Syn$TaxonUsageID %in% with(taxlist@taxonRelations,
+			##                 AcceptedName[TaxonConceptID %in% ConceptID]), ]
+			Syn <- Syn[!Syn$TaxonUsageID %in%
+							taxlist@taxonRelations$AcceptedName[
+									taxlist@taxonRelations$TaxonConceptID %in%
+											ConceptID], ]
 			return(Syn)
 		}
 )
@@ -200,10 +211,14 @@ setMethod("basionym", signature(taxlist="taxlist", ConceptID="numeric"),
 			Basionym <- taxlist@taxonRelations[match(ConceptID,
 							taxlist@taxonRelations$TaxonConceptID),
 					c("TaxonConceptID","Basionym")]
-			Basionym$BasionymName <- with(taxlist@taxonNames,
-					TaxonName[match(Basionym$Basionym, TaxonUsageID)])
-			Basionym$BasionymAuthor <- with(taxlist@taxonNames,
-					AuthorName[match(Basionym$Basionym, TaxonUsageID)])
+			## Basionym$BasionymName <- with(taxlist@taxonNames,
+			##         TaxonName[match(Basionym$Basionym, TaxonUsageID)])
+			Basionym$BasionymName <- taxlist@taxonNames$TaxonName[
+					match(Basionym$Basionym, taxlist@taxonNames$TaxonUsageID)]
+			## Basionym$BasionymAuthor <- with(taxlist@taxonNames,
+			##         AuthorName[match(Basionym$Basionym, TaxonUsageID)])
+			Basionym$BasionymAuthor <- taxlist@taxonNames$AuthorName[
+					match(Basionym$Basionym, taxlist@taxonNames$TaxonUsageID)]
 			return(Basionym)
 		}
 )

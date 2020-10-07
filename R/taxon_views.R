@@ -45,7 +45,7 @@
 #' taxon_views(Easplist)
 #' 
 #' ## Add a new view
-#' Easplist <- add_view(Easplist, secundum="Beentje et al. (1952)",
+#' Easplist <- add_view(taxlist=Easplist, secundum="Beentje et al. (1952)",
 #'   Title="Flora of Tropical East Africa",
 #'   URL="http://www.kew.org/science/directory/projects/FloraTropEAfrica.html")
 #' 
@@ -119,7 +119,7 @@ setMethod("add_view", signature(taxlist="taxlist"),
 				old_view <- taxlist@taxonViews
 				for(i in colnames(new_view)[!colnames(new_view) %in%
 								colnames(old_view)]) {
-					old_view[,i] <- rep(NA, nrow(old_view))
+					old_view[ ,i] <- rep(NA, nrow(old_view))
 				}
 				new_view <- do.call(rbind, list(old_view, new_view))
 			}

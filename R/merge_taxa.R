@@ -36,14 +36,15 @@
 #' @author Miguel Alvarez \email{kamapu78@@gmail.com}
 #' 
 #' @examples 
-#'## Merge Cyperus papyrus and Cyperus dives
-#'summary(Easplist, c(206, 197))
+#' ## Merge Cyperus papyrus and Cyperus dives
+#' summary(Easplist, c(206, 197))
 #'
-#'Easplist <- merge_taxa(Easplist, c(206, 197), print_output=TRUE)
+#' Easplist <- merge_taxa(object=Easplist, concepts=c(206, 197),
+#'     print_output=TRUE)
 #'
-#'## Move the name Typha aethiopica to concept 573 (T. latifolia)
-#'change_concept(Easplist, 53130) <- 573
-#'summary(Easplist, c(50105,573))
+#' ## Move the name Typha aethiopica to concept 573 (T. latifolia)
+#' change_concept(Easplist, 53130) <- 573
+#' summary(Easplist, c(50105,573))
 #' 
 #' @rdname merge_taxa
 #' 
@@ -72,7 +73,7 @@ setMethod("merge_taxa", signature(object="taxlist", concepts="numeric",
 			object@taxonRelations[object@taxonRelations$Parent %in% concepts,
 					"Parent"] <- concepts[1]
 			object@taxonRelations <- object@taxonRelations[
-					!object@taxonRelations$TaxonConceptID %in% concepts[-1],]
+					!object@taxonRelations$TaxonConceptID %in% concepts[-1], ]
 			object <- clean(object)
 			# Print result#
 			if(print_output) {
@@ -106,7 +107,7 @@ setMethod("merge_taxa", signature(object="taxlist", concepts="missing",
 														DEL, "TaxonConceptID"],
 										DEL)]
 				object@taxonRelations <- object@taxonRelations[
-						!object@taxonRelations$TaxonConceptID %in% DEL,]
+						!object@taxonRelations$TaxonConceptID %in% DEL, ]
 			}
 		return(clean(object))
 		}

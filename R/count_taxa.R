@@ -8,7 +8,7 @@
 #' 
 #' @param object An object containing a taxonomic list or a formula.
 #' @param data An object of class [taxlist-class] in the `formula` method.
-#' @param rm.na Logical value, whether NAs have to be removed from the input
+#' @param na.rm Logical value, whether NAs have to be removed from the input
 #'     vector or not.
 #' @param level Character value indicating the taxonomic rank of counted taxa.
 #' @param ... further arguments passed among methods.
@@ -46,8 +46,8 @@ setGeneric("count_taxa",
 #' @aliases count_taxa,character,missing-method
 #' 
 setMethod("count_taxa", signature(object="character", data="missing"),
-		function(object, rm.na=TRUE, ...) {
-			if(rm.na) object <- object[!is.na(object)]
+		function(object, na.rm=TRUE, ...) {
+			if(na.rm) object <- object[!is.na(object)]
 			return(length(unique(object)))
 		}
 )
@@ -57,8 +57,8 @@ setMethod("count_taxa", signature(object="character", data="missing"),
 #' @aliases count_taxa,factor,missing-method
 #' 
 setMethod("count_taxa", signature(object="factor", data="missing"),
-		function(object, rm.na=TRUE, ...) {
-			if(rm.na) object <- object[!is.na(object)]
+		function(object, na.rm=TRUE, ...) {
+			if(na.rm) object <- object[!is.na(object)]
 			return(count_taxa(paste(object)))
 		}
 )
@@ -75,7 +75,7 @@ setMethod("count_taxa", signature(object="taxlist", data="missing"),
 					stop(paste("Value of argument 'level' is not a level in",
 									"'object'."))
 				n_taxa <- nrow(object@taxonRelations[
-								paste(object@taxonRelations$Level) == level,])
+								paste(object@taxonRelations$Level) == level, ])
 			}
 			return(n_taxa)
 		}
@@ -110,10 +110,13 @@ setMethod("count_taxa", signature(object="formula", data="taxlist"),
 				traits_df <- data.frame(TaxonConceptID=
 								data@taxonRelations$TaxonConceptID)
 				for(i in attr(terms(object), "term.labels")) {
-					traits_df[,i] <- with(data@taxonTraits,
-							get(i)[match(traits_df$TaxonConceptID,
-											TaxonConceptID)])
-					traits_df[,i] <- replace_x(paste(traits_df[,i]),
+					## traits_df[ ,i] <- with(data@taxonTraits,
+					##         get(i)[match(traits_df$TaxonConceptID,
+					##                         TaxonConceptID)])
+					traits_df[ ,i] <- data@taxonTraits[
+							match(traits_df$TaxonConceptID,
+									data@taxonTraits$TaxonConceptID),i]
+					traits_df[ ,i] <- replace_x(paste(traits_df[ ,i]),
 							c("", "NA"), rep("NAs", 2))
 				}
 				data@taxonTraits <- traits_df

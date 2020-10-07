@@ -32,7 +32,8 @@
 #' @author Miguel Alvarez \email{kamapu78@@gmail.com}
 #' 
 #' @examples 
-#' Easplist <- subset(Easplist, lf_behn_2018 == "reed_plant", slot="traits")
+#' Easplist <- subset(x=Easplist, subset=lf_behn_2018 == "reed_plant",
+#'     slot="traits")
 #' summary(Easplist)
 #' 
 #' summary(as.factor(Easplist$lf_behn_2018))
@@ -59,7 +60,7 @@ setMethod("subset", signature(x="taxlist"),
             }
             z <- x
             z@taxonRelations <- x@taxonRelations[
-                    x@taxonRelations$TaxonConceptID %in% subset,]
+                    x@taxonRelations$TaxonConceptID %in% subset, ]
             z <- clean(z)
             if(keep_children)
                 z <- get_children(x, z)

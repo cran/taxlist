@@ -28,10 +28,11 @@
 #' Ebenaceae <- get_children(Easplist, Ebenaceae)
 #' 
 #' summary(Ebenaceae)
-#' summary(Ebenaceae, "all", maxsum=100)
+#' summary(object=Ebenaceae, ConceptID="all", maxsum=100)
 #' 
 #' ## Get parents of Diospyros tricolor
-#' Diostri <- subset(Easplist, TaxonConceptID == 52403, slot="relations")
+#' Diostri <- subset(x=Easplist, subset=TaxonConceptID == 52403,
+#'     slot="relations")
 #' Diostri <- get_parents(Easplist, Diostri)
 #' 
 #' summary(Diostri)
@@ -63,7 +64,7 @@ setMethod("get_children", signature(taxlist="taxlist", ConceptID="numeric"),
             }
             ConceptID <- do.call(c, ConceptID)
             taxlist@taxonRelations <- taxlist@taxonRelations[
-                    taxlist@taxonRelations$TaxonConceptID %in% ConceptID,]
+                    taxlist@taxonRelations$TaxonConceptID %in% ConceptID, ]
             return(clean(taxlist))
         }
 )
@@ -109,7 +110,7 @@ setMethod("get_parents", signature(taxlist="taxlist", ConceptID="numeric"),
             ConceptID <- do.call(c, ConceptID)
             ConceptID <- na.omit(ConceptID)
             taxlist@taxonRelations <- taxlist@taxonRelations[
-                    taxlist@taxonRelations$TaxonConceptID %in% ConceptID,]
+                    taxlist@taxonRelations$TaxonConceptID %in% ConceptID, ]
             return(clean(taxlist))
         }
 )

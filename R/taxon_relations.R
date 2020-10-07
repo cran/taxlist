@@ -18,7 +18,7 @@
 #' @param ... Further arguments passed among methods.
 #' 
 #' @details 
-#' The replacement method `taxon_relatiions<-` should be only used when
+#' The replacement method `taxon_relations<-` should be only used when
 #' constructing [taxlist-class] objects from an empty one
 #' (prototype).
 #' 
@@ -44,25 +44,26 @@
 #' 
 #' @examples 
 #' ## Subset for the genus Euclea and display of slot 'taxonNames'
-#' Euclea <- subset(Easplist, charmatch("Euclea", TaxonName), slot="names")
+#' Euclea <- subset(x=Easplist, subset=charmatch("Euclea", TaxonName),
+#'     slot="names")
 #' Euclea <- get_children(Easplist, Euclea)
 #' 
-#' summary(Euclea)
+#' Euclea
 #' taxon_relations(Euclea)
 #' 
 #' ## Subset with family Ebenaceae and children
 #' Ebenaceae <- subset(Easplist, charmatch("Ebenaceae", TaxonName))
 #' Ebenaceae <- get_children(Easplist, Ebenaceae)
 #' 
-#' summary(Ebenaceae)
-#' summary(Ebenaceae, "all", maxsum=100)
+#' Ebenaceae
+#' summary(object=Ebenaceae, ConceptID="all", maxsum=100)
 #' 
 #' ## Adding a new concept
-#' Ebenaceae <- add_concept(Ebenaceae, TaxonName="Euclea acutifolia",
+#' Ebenaceae <- add_concept(taxlist=Ebenaceae, TaxonName="Euclea acutifolia",
 #'     AuthorName="E. Mey. ex A. DC.", Level="species", Parent=55707, ViewID=1)
 #' 
 #' ## A summary again  
-#' summary(Ebenaceae)
+#' Ebenaceae
 #' summary(Ebenaceae, "all", maxsum=100)
 #' 
 #' ## Display two Typha species
@@ -70,7 +71,8 @@
 #' 
 #' ## Update a concept
 #' summary(Easplist, "Corchorus olitorius")
-#' Easplist <- update_concept(Easplist, 155, Level="subspecies")
+#' Easplist <- update_concept(taxlist=Easplist, ConceptID=155,
+#'     Level="subspecies")
 #' summary(Easplist, "Corchorus olitorius")
 #' 
 #' @rdname taxon_relations
@@ -179,9 +181,13 @@ setMethod("add_concept", signature(taxlist="taxlist", TaxonName="character"),
 setMethod("add_concept", signature(taxlist="taxlist", TaxonName="taxlist"),
 		function(taxlist, TaxonName, insert_view, ...) {
 			# First check
-			if(any(with(TaxonName@taxonNames, paste(TaxonName,
-											AuthorName)) %in%
-							with(taxlist@taxonNames, paste(TaxonName, AuthorName))))
+			## if(any(with(TaxonName@taxonNames, paste(TaxonName,
+			##                                 AuthorName)) %in%
+			##                 with(taxlist@taxonNames, paste(TaxonName, AuthorName))))
+			if(any(paste(TaxonName@taxonNames$TaxonName,
+									TaxonName@taxonNames$AuthorName) %in%
+							paste(taxlist@taxonNames$TaxonName,
+									taxlist@taxonNames$AuthorName)))
 				stop("Shared combinations are not allowed.")
 			# Change taxon views, if necessary
 			if(!missing(insert_view)) {
@@ -189,9 +195,11 @@ setMethod("add_concept", signature(taxlist="taxlist", TaxonName="taxlist"),
 					old_view <- TaxonName@taxonViews$ViewID
 				TaxonName@taxonViews$ViewID <- new_view <-
 						max(taxlist@taxonViews$ViewID) + seq_along(old_view)
-				TaxonName@taxonRelations$ViewID <-
-						with(TaxonName@taxonRelations, replace_x(ViewID,
-										old_view, new_view))
+				## TaxonName@taxonRelations$ViewID <-
+				##         with(TaxonName@taxonRelations, replace_x(ViewID,
+				##                         old_view, new_view))
+				TaxonName@taxonRelations$ViewID <- replace_x(
+						TaxonName@taxonRelations$ViewID, old_view, new_view)
 				taxlist@taxonViews <- insert_rows(taxlist@taxonViews,
 						TaxonName@taxonViews)
 			}
