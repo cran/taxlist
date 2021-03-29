@@ -1,3 +1,19 @@
+taxlist 0.2.1
+=============
+
+### New Features
+
+* New function `indented_list()` to print taxonomic ranks in indented lists.
+
+### Improvements
+
+* New argument `repaste` in function `dissect_name()` for re-pasting
+  dissected names.
+* Function `replace_idx()` setting by default `idx1 = x`.
+* Functions `replace_idx()` and `replace_na()` setting by default `idx2 = idx1`.
+* Special characters corrected in data set *Cyperus*.
+* Validation allowing taxa without rank but parents.
+
 taxlist 0.2.0
 =============
 
