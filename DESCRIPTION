@@ -1,5 +1,5 @@
 Package: taxlist
-Version: 0.2.1
+Version: 0.2.2
 Encoding: UTF-8
 Title: Handling Taxonomic Lists
 Authors@R: c(
@@ -33,15 +33,15 @@ Collate: 'imports.R' 'internal.R' 'deprecated-functions.R'
         'merge_taxa.R' 'Extract.R' 'subset.R' 'backup_object.R'
         'summary.R' 'df2taxlist.R' 'tv2taxlist.R' 'tnrs.R'
         'tax2traits.R' 'match_names.R' 'print_name.R' 'indented_list.R'
-        'taxlist2taxmap.R' 'Easplist-data.R' 'taxlist-package.R'
+        'Easplist-data.R' 'taxlist-package.R'
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1.9000
 NeedsCompilation: no
-Packaged: 2021-03-29 05:48:51 UTC; miguel
+Packaged: 2021-07-15 15:59:49 UTC; miguel
 Author: Miguel Alvarez [aut, cre] (<https://orcid.org/0000-0003-1500-1834>),
   Zachary Foster [ctb] (<https://orcid.org/0000-0002-5075-0948>),
   Sam Levin [rev],
   Margaret Siple [rev]
 Maintainer: Miguel Alvarez <kamapu78@gmail.com>
 Repository: CRAN
-Date/Publication: 2021-03-29 06:50:02 UTC
+Date/Publication: 2021-07-15 16:20:02 UTC
