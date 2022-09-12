@@ -1,5 +1,5 @@
 Package: taxlist
-Version: 0.2.2
+Version: 0.2.3
 Encoding: UTF-8
 Title: Handling Taxonomic Lists
 Authors@R: c(
@@ -11,9 +11,9 @@ Authors@R: c(
 	person("Margaret", "Siple", email="siplem@uw.edu", role="rev")
     )
 Depends: R(>= 3.5.0)
-Imports: foreign, methods, stats, taxa, taxize, stringdist, utils,
-        vegdata
-Suggests: ape, knitr, testthat, rmarkdown, roxygen2
+Imports: biblio, foreign, methods, stats, taxize, stringdist, stringr,
+        utils, vegdata
+Suggests: ape, knitr, rmarkdown, taxa, testthat
 LazyData: true
 Description: Handling taxonomic lists through objects of class 'taxlist'.
     This package provides functions to import species lists from 'Turboveg'
@@ -27,7 +27,7 @@ URL: https://cran.r-project.org/package=taxlist,
 BugReports: https://github.com/ropensci/taxlist/issues
 Collate: 'imports.R' 'internal.R' 'deprecated-functions.R'
         'replace_x.R' 'dissect_name.R' 'clean_strings.R'
-        'taxlist-class.R' 'clean.R' 'as.list.R' 'taxon_views.R'
+        'taxlist-class.R' 'clean.R' 'as.R' 'taxon_views.R'
         'count_taxa.R' 'taxon_names.R' 'taxon_relations.R'
         'taxon_traits.R' 'levels.R' 'accepted_name.R' 'get_children.R'
         'merge_taxa.R' 'Extract.R' 'subset.R' 'backup_object.R'
@@ -35,13 +35,13 @@ Collate: 'imports.R' 'internal.R' 'deprecated-functions.R'
         'tax2traits.R' 'match_names.R' 'print_name.R' 'indented_list.R'
         'Easplist-data.R' 'taxlist-package.R'
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1.9000
+RoxygenNote: 7.2.1
 NeedsCompilation: no
-Packaged: 2021-07-15 15:59:49 UTC; miguel
+Packaged: 2022-09-11 23:54:59 UTC; miguel
 Author: Miguel Alvarez [aut, cre] (<https://orcid.org/0000-0003-1500-1834>),
   Zachary Foster [ctb] (<https://orcid.org/0000-0002-5075-0948>),
   Sam Levin [rev],
   Margaret Siple [rev]
 Maintainer: Miguel Alvarez <kamapu78@gmail.com>
 Repository: CRAN
-Date/Publication: 2021-07-15 16:20:02 UTC
+Date/Publication: 2022-09-12 06:30:02 UTC

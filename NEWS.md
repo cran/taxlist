@@ -1,3 +1,25 @@
+taxlist 0.2.3
+=============
+
+### New Features
+
+* New arguments `isolate` and `trim` to prevent parts of scientific names to be
+  formatted in italics.
+  
+
+### Improvements
+
+* Function `match_names()` allows to sort output data frame in the
+  `'character,taxlist-method'`.
+* Slot **taxonViews** allowing class `lib_df` from package `biblio`.
+* In function `summary()`, when using text as query, a new parameter `exact`
+  allow for querying the exact name, which is usefull when querying genera.
+* New style of scripts using the package `styler`.
+* Name of taxon attribute **lf_behn_2018** changed to **life_form**.
+* Function `print_name()` is now working with more than one name (vectorized)
+  and reset to an S3 method, including an option for character vectors.
+* Function `df2taxlist()` redefined to allow import from a single data frame.
+
 taxlist 0.2.2
 =============
 

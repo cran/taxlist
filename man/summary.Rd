@@ -5,6 +5,7 @@
 \alias{summary,taxlist-method}
 \alias{show,taxlist-method}
 \alias{print,taxlist-method}
+\alias{print}
 \title{Print overviews for taxlist Objects and their content}
 \usage{
 \S4method{summary}{taxlist}(
@@ -15,6 +16,7 @@
   display = "both",
   maxsum = 5,
   secundum = NULL,
+  exact = FALSE,
   ...
 )
 
@@ -40,6 +42,10 @@ details).}
 
 \item{secundum}{A character value indicating the column from slot\code{taxonViews}
 to be displayed in the summary.}
+
+\item{exact}{A logical value indicating whether taxon names should match the
+exact argument in parameter 'ConceptID'. It works only if 'ConceptID' is
+provided as character value and  is not the keyword 'all'.}
 
 \item{...}{Further arguments passed to or from another methods.}
 }
@@ -68,7 +74,7 @@ For big objects it will be recommended to set \code{units="Mb"} (see also
 }
 \examples{
 ## summary of the object
-summary(Easplist, units="Mb")
+summary(Easplist, units = "Mb")
 
 ## the same output
 summary(Easplist)
@@ -77,14 +83,13 @@ print(Easplist)
 Easplist
 
 ## summary for two taxa
-summary(Easplist, c(51128,51140))
+summary(Easplist, c(51128, 51140))
 
 ## summary for a name
 summary(Easplist, "Acmella")
 
 ## summary for the first 10 taxa
-summary(object=Easplist, ConceptID="all", maxsum=10)
-
+summary(object = Easplist, ConceptID = "all", maxsum = 10)
 }
 \seealso{
 \linkS4class{taxlist}
