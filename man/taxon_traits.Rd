@@ -2,24 +2,27 @@
 % Please edit documentation in R/taxon_traits.R
 \name{taxon_traits}
 \alias{taxon_traits}
+\alias{taxon_traits.taxlist}
 \alias{taxon_traits,taxlist-method}
 \alias{taxon_traits<-}
-\alias{taxon_traits<-,taxlist,data.frame-method}
+\alias{taxon_traits<-.taxlist}
+\alias{taxon_traits<-,taxlist-method}
 \alias{update_trait}
-\alias{update_trait,taxlist,numeric-method}
+\alias{update_trait.taxlist}
+\alias{update_trait,taxlist-method}
 \title{Manipulation of taxon traits in taxlist objects.}
 \usage{
 taxon_traits(taxlist, ...)
 
-\S4method{taxon_traits}{taxlist}(taxlist, ...)
+\method{taxon_traits}{taxlist}(taxlist, ...)
 
-taxon_traits(taxlist) <- value
+taxon_traits(taxlist, ...) <- value
 
-\S4method{taxon_traits}{taxlist,data.frame}(taxlist) <- value
+\method{taxon_traits}{taxlist}(taxlist, ...) <- value
 
-update_trait(taxlist, ConceptID, ...)
+update_trait(taxlist, ...)
 
-\S4method{update_trait}{taxlist,numeric}(taxlist, ConceptID, ...)
+\method{update_trait}{taxlist}(taxlist, taxonTraits, ...)
 }
 \arguments{
 \item{taxlist}{A \linkS4class{taxlist} object.}
@@ -28,7 +31,10 @@ update_trait(taxlist, ConceptID, ...)
 
 \item{value}{Data frame to be set as slot \code{taxonTraits}.}
 
-\item{ConceptID}{A numeric vector with the respective taxon concept IDs.}
+\item{taxonTraits}{a data frame with taxon traits to be inserted in
+\code{'taxlist'}. A column \code{'TaxonConceptID'} is mandatory in this table.
+If some taxon concept IDs are not occurring in \code{'taxlist'}, an error
+message is retrieved by \code{update_trait()}.}
 }
 \description{
 The slot \code{taxonTraits} in \linkS4class{taxlist} objects contains
@@ -48,18 +54,17 @@ The replacement method \verb{taxon_traits<-} should be only used when
 constructing \linkS4class{taxlist} objects from an empty one.
 }
 \examples{
+## Displaying taxon traits
 head(taxon_traits(Easplist))
 
 ## Updating traits for Launaea cornuta
 summary(Easplist, "Launaea cornuta")
 accepted_name(taxlist = Easplist, ConceptID = 355, show_traits = TRUE)
 
-# Update
-Easplist <- update_trait(
-  taxlist = Easplist, ConceptID = 355,
-  life_form = "annual"
-)
-accepted_name(taxlist = Easplist, ConceptID = 355, show_traits = TRUE)
+sp_list <- update_trait(taxlist = Easplist, taxonTraits = data.frame(
+        TaxonConceptID = 355,
+        life_form = "annual"))
+accepted_name(taxlist = sp_list, ConceptID = 355, show_traits = TRUE)
 }
 \seealso{
 \linkS4class{taxlist}.

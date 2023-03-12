@@ -2,14 +2,20 @@
 % Please edit documentation in R/levels.R
 \name{levels}
 \alias{levels}
+\alias{levels.taxlist}
 \alias{levels,taxlist-method}
-\alias{levels<-,taxlist-method}
 \alias{levels<-}
+\alias{levels<-.taxlist}
+\alias{levels<-,taxlist-method}
 \title{Set and retrieves hierarchical levels}
 \usage{
-\S4method{levels}{taxlist}(x)
+levels(x)
 
-\S4method{levels}{taxlist}(x) <- value
+\method{levels}{taxlist}(x)
+
+levels(x) <- value
+
+\method{levels}{taxlist}(x) <- value
 }
 \arguments{
 \item{x}{A \linkS4class{taxlist} object.}
@@ -42,13 +48,11 @@ A replacement method of the form \code{levels(x) <- value} it is also implemente
 }
 \examples{
 ## Get levels of species list
-taxlist::levels(Easplist)
+levels(Easplist)
 
 ## Add aggregate as new taxonomic level
-levels(Easplist) <- c(
-  "form", "variety", "subspecies", "species",
-  "complex", "aggregate", "genus", "family"
-)
+levels(Easplist) <- c("form", "variety", "subspecies", "species", "complex",
+    "aggregate", "genus", "family")
 summary(Easplist)
 }
 \author{

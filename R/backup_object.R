@@ -43,74 +43,29 @@
 #'
 #' @seealso \code{\link{save}} \code{\link{load}}.
 #'
-#' @examples
-#' \dontrun{
-#' ## A subset with Pseudognaphalium and relatives
-#' Pseudognaphalium <- subset(x = Easplist, subset = grepl(
-#'   "Pseudognaphalium",
-#'   TaxonName
-#' ), slot = "names")
-#' Pseudognaphalium <- get_parents(Easplist, Pseudognaphalium)
+#' @example examples/backup_object.R
 #'
-#' ## Create a backup with date stamp
-#' backup_object(Pseudognaphalium, file = "Pseudonaphalium")
-#'
-#' ## The same
-#' backup_object(objects = "Pseudognaphalium", file = "Pseudonaphalium")
-#'
-#' ## To load the last backup into a session
-#' load_last("Pseudognaphalium")
-#' }
-#'
-#' ## Load pre-installed backup
-#' load_last(file.path(path.package("taxlist"), "extdata", "Podocarpus"))
 #' @rdname backup_object
 #'
 #' @export
-#'
 backup_object <- function(..., objects = character(), file, stamp = TRUE,
                           overwrite = FALSE) {
-  if (missing(file)) {
-    stop("Missing value for argument 'file'")
+  file2 <- basename(file_path_sans_ext(file))
+  path <- dirname(file)
+  inFolder <- file_path_sans_ext(list.files(path = path, pattern = ".rda"))
+  if (stamp) file2 <- paste0(file2, "_", Sys.Date())
+  if (!overwrite) {
+    file2 <- id_solver(insert = file2, to = inFolder, sep = "_")
   }
-  if (length(file) > 1) {
-    file <- file[1]
-    warning("Only the first element of argument 'file' will be used")
-  }
-  path <- "."
-  file2 <- file
-  if (grepl("/", file, fixed = TRUE)) {
-    path <- strsplit(file, "/", fixed = TRUE)[[1]]
-    file2 <- path[length(path)]
-    path <- paste(path[-length(path)], collapse = "/")
-  }
-  if (grepl("\\", file, fixed = TRUE)) {
-    path <- strsplit(file, "\\", fixed = TRUE)[[1]]
-    file2 <- path[length(path)]
-    path <- paste(path[-length(path)], collapse = "/")
-  }
-  inFolder <- list.files(path = path, pattern = ".rda")
-  if (stamp) stamp <- paste0("_", Sys.Date()) else stamp <- ""
-  if (paste0(file2, stamp, ".rda") %in% inFolder & !overwrite) {
-    i <- 0
-    repeat{
-      i <- i + 1
-      if (paste0(file2, stamp, "_", i, ".rda") %in% inFolder) {
-        next
-      } else {
-        break
-      }
-    }
-    stamp <- paste(stamp, i, sep = "_")
-  }
-  save(..., list = objects, file = paste0(file, stamp, ".rda"))
-  message(paste0("Backup saved as '", file, stamp, ".rda'"))
+  save(..., list = objects, file = file.path(path, paste0(file2, ".rda")))
+  message(paste0(
+    "Backup saved as '", file.path(path, paste0(file2, ".rda")),
+    "'"
+  ))
 }
 
 #' @rdname backup_object
-#'
 #' @export
-#'
 load_last <- function(file, fext = ".rda") {
   OUT <- sort_backups(file = file, fext = fext)
   message(paste0("Loading file '", OUT$filename[nrow(OUT)], "' to session."))

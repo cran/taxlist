@@ -2,32 +2,28 @@
 % Please edit documentation in R/get_children.R
 \name{get_children}
 \alias{get_children}
-\alias{get_children,taxlist,numeric-method}
-\alias{get_children,taxlist,taxlist-method}
+\alias{get_children.taxlist}
+\alias{get_children,taxlist-method}
 \alias{get_parents}
-\alias{get_parents,taxlist,numeric-method}
-\alias{get_parents,taxlist,taxlist-method}
+\alias{get_parents.taxlist}
+\alias{get_parents,taxlist-method}
 \title{Retrieve children or parents of taxon concepts}
 \usage{
-get_children(taxlist, ConceptID, ...)
+get_children(taxlist, ...)
 
-\S4method{get_children}{taxlist,numeric}(taxlist, ConceptID, ...)
+\method{get_children}{taxlist}(taxlist, ConceptID, ...)
 
-\S4method{get_children}{taxlist,taxlist}(taxlist, ConceptID, ...)
+get_parents(taxlist, ...)
 
-get_parents(taxlist, ConceptID, ...)
-
-\S4method{get_parents}{taxlist,numeric}(taxlist, ConceptID, ...)
-
-\S4method{get_parents}{taxlist,taxlist}(taxlist, ConceptID, ...)
+\method{get_parents}{taxlist}(taxlist, ConceptID, ...)
 }
 \arguments{
 \item{taxlist}{A \linkS4class{taxlist} object.}
 
+\item{...}{Further arguments passed among methods.}
+
 \item{ConceptID}{Concept IDs for selecting parents or children or a subset of
 \code{taxlist}.}
-
-\item{...}{Further arguments passed among methods.}
 }
 \value{
 A \linkS4class{taxlist} object with a subset including
@@ -45,21 +41,19 @@ the input \code{taxlist} object.
 }
 \examples{
 ## Subset with family Ebenaceae and children
-Ebenaceae <- subset(Easplist, charmatch("Ebenaceae", TaxonName))
-Ebenaceae <- get_children(Easplist, Ebenaceae)
+Ebenaceae <- subset(x = Easplist, subset = TaxonName == "Ebenaceae")
+Ebenaceae
 
-summary(Ebenaceae)
-summary(object = Ebenaceae, ConceptID = "all", maxsum = 100)
+Ebenaceae <- get_children(Easplist, Ebenaceae)
+Ebenaceae
 
 ## Get parents of Diospyros tricolor
-Diostri <- subset(
-  x = Easplist, subset = TaxonConceptID == 52403,
-  slot = "relations"
-)
-Diostri <- get_parents(Easplist, Diostri)
+Diostri <- subset(x = Easplist, subset = TaxonConceptID == 52403,
+    slot = "relations")
+Diostri
 
-summary(Diostri)
-summary(Diostri, "all")
+Diostri <- get_parents(Easplist, Diostri)
+Diostri
 }
 \author{
 Miguel Alvarez \email{kamapu78@gmail.com}

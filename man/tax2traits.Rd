@@ -2,12 +2,13 @@
 % Please edit documentation in R/tax2traits.R
 \name{tax2traits}
 \alias{tax2traits}
+\alias{tax2traits.taxlist}
 \alias{tax2traits,taxlist-method}
 \title{Set taxonomic information as taxon traits}
 \usage{
 tax2traits(object, ...)
 
-\S4method{tax2traits}{taxlist}(object, get_names = FALSE, ...)
+\method{tax2traits}{taxlist}(object, get_names = FALSE, ...)
 }
 \arguments{
 \item{object}{An object of class \linkS4class{taxlist}.}
@@ -33,10 +34,8 @@ relationships and information on taxonomic levels.
 }
 \examples{
 ## Family Acanthaceae with children
-Acanthaceae <- subset(
-  x = Easplist, subset = TaxonName == "Acanthaceae",
-  slot = "names", keep_children = TRUE
-)
+Acanthaceae <- subset(x = Easplist, subset = TaxonName == "Acanthaceae",
+  slot = "names", keep_children = TRUE)
 summary(Acanthaceae)
 
 ## Insert taxonomy to taxon traits
