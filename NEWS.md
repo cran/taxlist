@@ -1,3 +1,37 @@
+# taxlist 0.3.0
+
+### New Features
+
+- New function `prune_levels()` pruning levels that are not used in `taxlist`
+  objects.
+- New function `merge_to_parent()` merging multiple taxa to their respective
+  parents.
+- New function `sort_backups()` retrieving a sorted list of backups written by
+  `backup_object()`.
+- New function `taxlist2df()` for converting `taxlist` objects into data
+  frames.
+- New function `parents()` retrieving parent taxa at a determined rank for
+  selected taxon concepts.
+  
+### Improvements
+
+- Function `merge_taxa()` can now be used to query a list of taxonomic ranks.
+  This is enabled through the argument **level**.
+- A new argument **delelte_nomatch** in function `merge_taxa()` to delete
+  top ranks and rankless taxa.
+- Function `backup_object()` retrieves an invisible vector with information
+  about the written backup.
+- Function `load_last()` retrieves an invisible data frame with information
+  about the imported backup. It also include a new argument `choice` to select
+  a different backup from the list produced by `sort_backups()`.
+- Function `insert_rows()` was redefined as a generic function.
+- New arguments in function `print_name()`:
+  - **italics:** a logical value that allows to unset italic format of names.
+    This can be usefull for taxonomic ranks that are not written in italics
+    (e.g. Family names in plant and animals).
+  - **collapse:** a character value (or vector of lengh 2), used to collapse
+    strings of names, for instance to mention more than one taxa in the text.
+
 taxlist 0.2.4
 =============
 

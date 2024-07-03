@@ -2,36 +2,33 @@
 % Please edit documentation in R/taxlist-package.R
 \docType{package}
 \name{taxlist-package}
+\alias{taxlist}
 \alias{taxlist-package}
-\title{taxlist: Handling taxonomic lists.}
+\title{taxlist: Handling Taxonomic Lists}
 \description{
-The class \linkS4class{taxlist} is defined in this package using the
-S4 language.
-The main task of \code{taxlist} objects is to keep the taxonomic coherence of
-information included in taxonomic lists and to implement functions (methods)
-for a proper data handling.
-Objects of class \linkS4class{taxlist} can be included in further
-objects, for instance in biodiversity records as done in the package
-\href{https://cran.r-project.org/package=vegtable}{vegtable}.
-}
-\details{
-The class \linkS4class{taxlist} is defined in this package using the
-S4 language.
-The main task of \code{taxlist} objects is to keep the taxonomic coherence of
-information included in taxonomic lists and to implement functions (methods)
-for a proper data handling.
-Objects of class \linkS4class{taxlist} can be included in further
-objects, for instance in biodiversity records as done in the package
-\href{https://cran.r-project.org/package=vegtable}{vegtable}.
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-For a more detailed description of this package, see Alvarez & Luebert
-(2018).
+Handling taxonomic lists through objects of class 'taxlist'. This package provides functions to import species lists from 'Turboveg' (\url{https://www.synbiosys.alterra.nl/turboveg/}) and the possibility to create backups from resulting R-objects. Also quick displays are implemented as summary-methods.
 }
-\references{
-\bold{Alvarez M, Luebert F (2018).} The taxlist package: managing plant
-taxonomic lists in R. \emph{Biodiversity Data Journal} 6: e23635.
-\doi{10.3897/bdj.6.e23635}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://cran.r-project.org/package=taxlist}
+  \item \url{https://github.com/ropensci/taxlist}
+  \item \url{https://docs.ropensci.org/taxlist/}
+  \item Report bugs at \url{https://github.com/ropensci/taxlist/issues}
+}
+
 }
 \author{
-Miguel Alvarez \email{kamapu78@gmail.com}
+\strong{Maintainer}: Miguel Alvarez \email{kamapu78@gmail.com} (\href{https://orcid.org/0000-0003-1500-1834}{ORCID})
+
+Other contributors:
+\itemize{
+  \item Zachary Foster \email{zacharyfoster1989@gmail.com} (\href{https://orcid.org/0000-0002-5075-0948}{ORCID}) [contributor]
+  \item Sam Levin \email{levisc8@gmail.com} [reviewer]
+  \item Margaret Siple \email{siplem@uw.edu} [reviewer]
 }
+
+}
+\keyword{internal}
