@@ -40,23 +40,41 @@ overview_taxlist <- function(object, units, check_validity) {
   }
   if (any(!is.na(object@taxonRelations$Level))) {
     cat("\n")
-    cat("hierarchical levels:", paste(levels(object), collapse = " < "),
-      sep = " ", "\n"
+    cat(
+      "concepts with rank information:",
+      sum(!is.na(object@taxonRelations$Level)), "\n"
     )
-    for (i in base::levels(object@taxonRelations$Level)) {
-      cat("number of concepts in level ", i, ": ",
-        sum(paste(object@taxonRelations$Level) == i),
-        sep = "", "\n"
-      )
+    cat(
+      "concepts without rank information:",
+      sum(is.na(object@taxonRelations$Level)), "\n"
+    )
+    # Hierarchies as indented list
+    cat("\n")
+    indent <- list()
+    for (i in 1:length(levels(object))) {
+      if (i == 1) {
+        indent[[i]] <- ""
+      } else {
+        indent[[i]] <- paste0(rep("  ", i - 1), collapse = "")
+      }
     }
+    indent <- do.call(c, indent)
+    # indent <- paste0(indent, rev(levels(object)), "\n")
+    indent <- paste0(indent, rev(levels(object)))
+    n_rank <- character(0)
+    for (i in rev(base::levels(object@taxonRelations$Level))) {
+      n_rank <- c(n_rank, as.character(sum(paste(
+        object@taxonRelations$Level
+      ) == i)))
+    }
+    indent <- paste0(indent, ": ", n_rank, "\n")
+    cat(indent, "\n", sep = "")
   }
   cat("\n")
 }
 
 #' Function producing the overview of single taxon concepts.
-#'
 #' @keywords internal
-#'
 overview_taxon <- function(object, ConceptID, display, maxsum,
                            secundum = NULL) {
   if (length(ConceptID > 0)) {

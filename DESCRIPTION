@@ -1,5 +1,5 @@
 Package: taxlist
-Version: 0.3.0
+Version: 0.3.5
 Encoding: UTF-8
 Title: Handling Taxonomic Lists
 Authors@R: c(
@@ -12,7 +12,7 @@ Authors@R: c(
     )
 Depends: R(>= 4.3)
 Imports: biblio (>= 0.0.8), foreign, methods, stats, stringdist,
-        stringi, stringr, tools, utils, vegdata
+        stringi, stringr, tools, utils
 Suggests: ape, knitr, rmarkdown, taxa, testthat
 LazyData: true
 Description: Handling taxonomic lists through objects of class 'taxlist'.
@@ -25,11 +25,11 @@ URL: https://cran.r-project.org/package=taxlist,
         https://github.com/ropensci/taxlist,
         https://docs.ropensci.org/taxlist/
 BugReports: https://github.com/ropensci/taxlist/issues
-Collate: 'imports.R' 'internal.R' 'levels.R' 'prune_levels.R'
-        'deprecated-functions.R' 'id_generator.R' 'replace_x.R'
-        'insert_rows.R' 'dissect_name.R' 'clean_strings.R'
-        'taxlist-class.R' 'matched_names-class.R' 'clean.R'
-        'coerce-methods.R' 'taxon_views.R' 'count_taxa.R'
+Collate: 'imports.R' 'internal.R' 'sort_taxa.R' 'levels.R'
+        'prune_levels.R' 'deprecated-functions.R' 'id_generator.R'
+        'replace_x.R' 'reindex.R' 'insert_rows.R' 'dissect_name.R'
+        'clean_strings.R' 'taxlist-class.R' 'matched_names-class.R'
+        'clean.R' 'coerce-methods.R' 'taxon_views.R' 'count_taxa.R'
         'taxon_names.R' 'taxon_relations.R' 'add_concept.R'
         'taxon_traits.R' 'accepted_name.R' 'get_children.R'
         'merge_to_parent.R' 'merge_taxa.R' 'Extract.R' 'subset.R'
@@ -38,13 +38,14 @@ Collate: 'imports.R' 'internal.R' 'levels.R' 'prune_levels.R'
         'Easplist-data.R' 'taxlist-package.R' 'taxlist2df.R'
         'parents.R'
 VignetteBuilder: knitr
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.3
 NeedsCompilation: no
-Packaged: 2024-07-03 12:38:37 UTC; miguel
-Author: Miguel Alvarez [aut, cre] (<https://orcid.org/0000-0003-1500-1834>),
-  Zachary Foster [ctb] (<https://orcid.org/0000-0002-5075-0948>),
+Packaged: 2025-11-27 16:36:28 UTC; miguel
+Author: Miguel Alvarez [aut, cre] (ORCID:
+    <https://orcid.org/0000-0003-1500-1834>),
+  Zachary Foster [ctb] (ORCID: <https://orcid.org/0000-0002-5075-0948>),
   Sam Levin [rev],
   Margaret Siple [rev]
 Maintainer: Miguel Alvarez <kamapu78@gmail.com>
 Repository: CRAN
-Date/Publication: 2024-07-03 13:30:02 UTC
+Date/Publication: 2025-11-28 06:20:22 UTC

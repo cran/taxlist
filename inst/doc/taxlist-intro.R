@@ -1,15 +1,15 @@
 ## ----install_github, eval=FALSE-----------------------------------------------
-#  library(devtools)
-#  install_github("ropensci/taxlist", build_vignettes = TRUE)
+# library(devtools)
+# install_github("ropensci/taxlist", build_vignettes = TRUE)
 
 ## ----install_cran, eval=FALSE-------------------------------------------------
-#  install.packages("taxlist", dependencies = TRUE)
+# install.packages("taxlist", dependencies = TRUE)
 
 ## ----load_taxlist, message=FALSE----------------------------------------------
 library(taxlist)
 
 ## ----call_vignette, eval=FALSE------------------------------------------------
-#  vignette("taxlist-intro")
+# vignette("taxlist-intro")
 
 ## ----load_example_table-------------------------------------------------------
 load(file.path(path.package("taxlist"), "Cross.rda"))
